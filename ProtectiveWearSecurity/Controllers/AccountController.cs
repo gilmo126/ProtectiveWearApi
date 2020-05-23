@@ -16,6 +16,9 @@ using ProtectiveWearSecurity.Models;
 
 namespace ProtectiveWearSecurity.Controllers
 {
+    /// <summary>
+    /// 
+    /// </summary>
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/account")]
     [Produces("application/json")]
