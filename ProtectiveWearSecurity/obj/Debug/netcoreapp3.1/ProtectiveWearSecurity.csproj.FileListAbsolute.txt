@@ -1,0 +1,10 @@
+C:\Users\guigi\source\repos\ProtectiveWearApi\ProtectiveWearSecurity\bin\Debug\netcoreapp3.1\appsettings.Development.json
+C:\Users\guigi\source\repos\ProtectiveWearApi\ProtectiveWearSecurity\bin\Debug\netcoreapp3.1\appsettings.json
+C:\Users\guigi\source\repos\ProtectiveWearApi\ProtectiveWearSecurity\bin\Debug\netcoreapp3.1\Properties\launchSettings.json
+C:\Users\guigi\source\repos\ProtectiveWearApi\ProtectiveWearSecurity\bin\Debug\netcoreapp3.1\ProtectiveWearSecurity.exe
+C:\Users\guigi\source\repos\ProtectiveWearApi\ProtectiveWearSecurity\obj\Debug\netcoreapp3.1\ProtectiveWearSecurity.csprojAssemblyReference.cache
+C:\Users\guigi\source\repos\ProtectiveWearApi\ProtectiveWearSecurity\obj\Debug\netcoreapp3.1\ProtectiveWearSecurity.AssemblyInfoInputs.cache
+C:\Users\guigi\source\repos\ProtectiveWearApi\ProtectiveWearSecurity\obj\Debug\netcoreapp3.1\ProtectiveWearSecurity.AssemblyInfo.cs
+C:\Users\guigi\source\repos\ProtectiveWearApi\ProtectiveWearSecurity\obj\Debug\netcoreapp3.1\ProtectiveWearSecurity.RazorTargetAssemblyInfo.cache
+C:\Users\guigi\source\repos\ProtectiveWearApi\ProtectiveWearSecurity\obj\Debug\netcoreapp3.1\staticwebassets\ProtectiveWearSecurity.StaticWebAssets.Manifest.cache
+C:\Users\guigi\source\repos\ProtectiveWearApi\ProtectiveWearSecurity\obj\Debug\netcoreapp3.1\staticwebassets\ProtectiveWearSecurity.StaticWebAssets.xml
