@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "EgvWJTzdDQKlxZae64hYjdCM1CYtWm/0Jgsc47uOoqUYmlxA+JpyNTmij6dZ94hDZnJ9SqrtFNF2/EH0QmlnRg==",
+  "dgSpecHash": "bC8UFqIjWtZobZyDo7Gzv7o8rZrJSDmVHvLIzaXBBLYdasUKQcWaitPF5yHNfmJdDuU39CNLTQiIxQfp8fvTww==",
   "success": true,
-  "projectFilePath": "C:\\Users\\guigi\\source\\repos\\ProtectiveWearApi\\ProtectiveWearSecurity\\ProtectiveWearSecurity.csproj",
+  "projectFilePath": "C:\\Users\\guigi\\Source\\Repos\\ProtectiveWearApi\\ProtectiveWearSecurity\\ProtectiveWearSecurity.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\guigi\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.10.8\\microsoft.visualstudio.azure.containers.tools.targets.1.10.8.nupkg.sha512"
   ],
