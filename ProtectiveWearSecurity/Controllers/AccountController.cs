@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using ProtectiveWearSecurity.Models;
+using ProtectiveWearSecurity.Interfaces;
 
 namespace ProtectiveWearSecurity.Controllers
 {
@@ -26,7 +27,11 @@ namespace ProtectiveWearSecurity.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-        private readonly IConfiguration _configuration;
+        private readonly IConfiguration _configuration;  
+
+        public AccountController() { 
+        
+        }
 
         public AccountController(
             UserManager<ApplicationUser> userManager,

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\guigi\\Source\\Repos\\ProtectiveWearApi\\ProtectiveWearSecurity\\ProtectiveWearSecurity.csproj": {}
+    "C:\\Users\\guigi\\source\\repos\\ProtectiveWearApi\\ProtectiveWearSecurity\\ProtectiveWearSecurity.csproj": {}
   },
   "projects": {
-    "C:\\Users\\guigi\\Source\\Repos\\ProtectiveWearApi\\ProtectiveWearSecurity\\ProtectiveWearSecurity.csproj": {
+    "C:\\Users\\guigi\\source\\repos\\ProtectiveWearApi\\ProtectiveWearSecurity\\ProtectiveWearSecurity.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\guigi\\Source\\Repos\\ProtectiveWearApi\\ProtectiveWearSecurity\\ProtectiveWearSecurity.csproj",
+        "projectUniqueName": "C:\\Users\\guigi\\source\\repos\\ProtectiveWearApi\\ProtectiveWearSecurity\\ProtectiveWearSecurity.csproj",
         "projectName": "ProtectiveWearSecurity",
-        "projectPath": "C:\\Users\\guigi\\Source\\Repos\\ProtectiveWearApi\\ProtectiveWearSecurity\\ProtectiveWearSecurity.csproj",
+        "projectPath": "C:\\Users\\guigi\\source\\repos\\ProtectiveWearApi\\ProtectiveWearSecurity\\ProtectiveWearSecurity.csproj",
         "packagesPath": "C:\\Users\\guigi\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\guigi\\Source\\Repos\\ProtectiveWearApi\\ProtectiveWearSecurity\\obj\\",
+        "outputPath": "C:\\Users\\guigi\\source\\repos\\ProtectiveWearApi\\ProtectiveWearSecurity\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

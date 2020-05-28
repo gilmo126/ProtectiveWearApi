@@ -56,6 +56,7 @@ namespace ProtectiveWearSecurity
                 };
             });
 
+
             services.AddControllers();
         }
 
