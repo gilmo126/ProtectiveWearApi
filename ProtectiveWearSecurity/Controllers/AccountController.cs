@@ -18,7 +18,7 @@ using ProtectiveWearSecurity.Interfaces;
 namespace ProtectiveWearSecurity.Controllers
 {
     /// <summary>
-    /// 
+    /// Clase encargada de generar la autenticación
     /// </summary>
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/account")]
@@ -29,10 +29,12 @@ namespace ProtectiveWearSecurity.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IConfiguration _configuration;  
 
-        public AccountController() { 
-        
-        }
-
+        /// <summary>
+        /// Constructor de la clase.
+        /// </summary>
+        /// <param name="userManager"></param>
+        /// <param name="signInManager"></param>
+        /// <param name="configuration"></param>
         public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,

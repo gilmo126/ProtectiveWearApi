@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "6DTL1ovgjnrhU8zYzWIojhrM2qYx1BgyyiP86LvBMvq5/IqUvYorKFHAJJRZ1dAAmyUxqplNboxe3WUu3KscBw==",
+  "dgSpecHash": "nbWn9lAtOp1MLot4j+J9Dnd7IRLSn64p/HsL3wpuBTcniOeRCGiIbd7bbJrnVEnku+QGekpTUS2C63Yw3u+IjA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\guigi\\source\\repos\\ProtectiveWearApi\\ProtectiveWearSecurity\\ProtectiveWearSecurity.csproj",
+  "projectFilePath": "C:\\Users\\guigi\\Source\\Repos\\ProtectiveWearApi\\ProtectiveWearSecurity\\ProtectiveWearSecurity.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\guigi\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\3.1.4\\microsoft.aspnetcore.authentication.jwtbearer.3.1.4.nupkg.sha512",
     "C:\\Users\\guigi\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\3.1.4\\microsoft.aspnetcore.cryptography.internal.3.1.4.nupkg.sha512",
