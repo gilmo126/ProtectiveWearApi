@@ -1,135 +1,216 @@
-﻿using System.Linq;
-using System.Collections.Generic;
-using Microsoft.Extensions.Configuration;
+﻿using System.Collections.Generic;
 using MongoDB.Driver;
 using ProtectiveWearProductsApi.Models;
 using System.Threading.Tasks;
-using MongoDB.Bson;
+using MongoDB.Driver.Linq;
+using ProtectiveWearProductsApi.Excepciones;
+using System.Net;
 
 namespace ProtectiveWearProductsApi.Services
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class ProductService
     {
-        private readonly IMongoCollection<Product> _products;
+        private readonly IMongoDatabase _productsDB;
 
         /// <summary>
-        /// 
+        /// Constructor de la clase
         /// </summary>
-        /// <param name="setting"></param>
+        /// <param name="setting">Toma una extesion de los parametros configurables de la cadena de conexion</param>
         public ProductService(IProductsDatabaseSettings setting)
         {
             var client = new MongoClient(setting.ConnectionString);
-            var database = client.GetDatabase(setting.DatabaseName);
-            _products = database.GetCollection<Product>(setting.ProductsCollectionName);
+            if (client != null)
+                _productsDB = client.GetDatabase(setting.DatabaseName);
         }
 
         /// <summary>
-        /// 
+        /// propiedad de tipo IMongoCollection, para tomar la coleccion a mostrar
         /// </summary>
-        /// <returns></returns>
-        public List<Product> Get()
+        public IMongoCollection<Product> Products
         {
-            return _products.Find(prod => true).ToList();
+            get
+            {
+                return _productsDB.GetCollection<Product>("Product");
+            }
         }
-
         /// <summary>
-        /// 
+        /// Proceso que consulta una lista de productos, de forma síncrono.
         /// </summary>
-        /// <returns></returns>
-        public async Task<List<Product>> GetAsync()
+        /// <returns>Retorna una lista de objetos de tipo producto</returns>
+        public List<ProductApi> Get()
         {
-            return await _products.FindAsync(prod => true).Result.ToListAsync();
+            return Products
+                  .AsQueryable()
+                  .Select(x => new ProductApi
+                  {
+                      Nombre = x.Nombre,
+                      Presentacion = x.Presentacion,
+                      Descripcion = x.Descripcion,
+                      Precio = x.Precio
+
+                  })
+                  .ToList();
         }
 
         /// <summary>
-        /// 
+        /// Proceso que consulta una lista de productos, de forma asíncrono.
+        /// </summary>
+        /// <returns>Retorna una lista de objetos de tipo producto</returns>
+        public async Task<List<ProductApi>> GetAsync()
+        {
+            return await Products
+                  .AsQueryable()
+                  .Select(x => new ProductApi
+                  {
+                      Nombre = x.Nombre,
+                      Presentacion = x.Presentacion,
+                      Descripcion = x.Descripcion,
+                      Precio = x.Precio
+
+                  })
+                  .ToListAsync();
+        }
+
+        /// <summary>
+        /// Proceso para consultar el detalle de un producto, de forma asíncrono.
+        /// </summary>
+        /// <param name="id">Identificación de un producto</param>
+        /// <returns>Retorna la información de tallada de un producto</returns>
+        public async Task<ProductApi> GetAsync(string id)
+        {
+            var result = await Products
+                        .AsQueryable()
+                        .Where(prod => prod.Id == id)
+                        .Select(p => new ProductApi
+                        {
+                            Nombre = p.Nombre,
+                            Presentacion = p.Presentacion,
+                            Descripcion = p.Descripcion,
+                            Precio = p.Precio
+                        })
+                       .FirstOrDefaultAsync();
+
+            CheckIsNotNull(result);
+
+            return result;
+        }
+
+        /// <summary>
+        /// Proceso para consultar el detalle de un producto, de forma síncrono.
+        /// </summary>
+        /// <param name="id">Identificación de un producto</param>
+        /// <returns>Retorna la información de tallada de un producto</returns>
+        public ProductApi Get(string id)
+        {
+            var result = Products
+                      .AsQueryable()
+                      .Where(prod => prod.Id == id)
+                      .Select(p => new ProductApi
+                      {
+                          Nombre = p.Nombre,
+                          Presentacion = p.Presentacion,
+                          Descripcion = p.Descripcion,
+                          Precio = p.Precio
+                      })
+                      .FirstOrDefault();
+
+            CheckIsNotNull(result);
+
+            return result;
+
+        }
+
+        /// <summary>
+        /// Proceso de creación de un producto, asíncrono.
+        /// </summary>
+        /// <param name="model">Objeto de tipo producto</param>
+        /// <returns>Retorna el nevo objeto creado con su id</returns>
+        public async Task<Product> CreateAsync(Product model)
+        {
+            if (model is null)
+            {
+                throw new HttpException(new List<string> { "Datos de productos no diligenciados" }, HttpStatusCode.Gone);
+            }
+
+            await Products.InsertOneAsync(model);
+            return model;
+        }
+
+        /// <summary>
+        /// Proceso de creación de un producto, síncrono.
+        /// </summary>
+        /// <param name="model">Objeto de tipo producto</param>
+        /// <returns>Retorna el nevo objeto creado con su id</returns>
+        public Product Create(Product model)
+        {
+            if (model is null)
+            {
+                throw new HttpException(new List<string> { "Datos de productos no diligenciados" }, HttpStatusCode.Gone);
+            }
+            Products.InsertOne(model);
+            return model;
+        }
+
+        /// <summary>
+        /// Proceso de actualización de un producto, síncrono.
+        /// </summary>
+        /// <param name="id">Identificación de un producto</param>
+        /// <param name="model">Objeto de tipo producto</param>
+        public void Update(string id, Product model)
+        {
+            var result = Get(id);
+            if(result == null)
+                throw new HttpException(new List<string> { "Producto no encontrado para actualizar" }, HttpStatusCode.NotFound);
+
+            Products.ReplaceOne(car => car.Id == id, model);
+        }
+
+        /// <summary>
+        /// Proceso de actualización de un producto, asíncrono.
+        /// </summary>
+        /// <param name="id">Identificación de un producto</param>
+        /// <param name="model">Objeto de tipo producto</param>
+        public async Task UpdateAsync(string id, Product model)
+        {
+            var result = Get(id);
+            if (result == null)
+                throw new HttpException(new List<string> { "Producto no encontrado para actualizar" }, HttpStatusCode.NotFound);
+
+            await Products.ReplaceOneAsync(car => car.Id == id, model);
+        }
+
+        /// <summary>
+        /// Proceso de eliminación de un producto, asíncrono.
         /// </summary>
         /// <param name="id"></param>
-        /// <returns></returns>
-        public async Task<Product> GetAsync(string id)
-        {
-            return await _products.FindAsync(prod => prod.Id == id).Result.FirstOrDefaultAsync();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="prod"></param>
-        /// <returns></returns>
-        public async Task<Product> CreateAsync(Product prod)
-        {
-           await _products.InsertOneAsync(prod);
-            return prod;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="prod"></param>
-        /// <returns></returns>
-        public Product Create(Product prod)
-        {
-             _products.InsertOne(prod);
-            return prod;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="prodIn"></param>
-        public  void Update(string id, Product prodIn)
-        {
-             _products.ReplaceOneAsync(car => car.Id == id, prodIn);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="prodIn"></param>
-        public async Task UpdateAsync(string id, Product prodIn)
-        {
-           await _products.ReplaceOneAsync(car => car.Id == id, prodIn);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="prodIn"></param>
-        /// <returns></returns>
-        public async Task RemoveAsync(Product prodIn)
-        {
-           await _products.DeleteOneAsync(prod => prod.Id == prodIn.Id);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="prodIn"></param>
-        /// <returns></returns>
-        public void Remove(Product prodIn)
-        {
-             _products.DeleteOneAsync(prod => prod.Id == prodIn.Id);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        /// <returns>Retorna un valor vacio con resultado ok</returns>
         public async Task RemoveAsync(string id)
         {
-           await _products.DeleteOneAsync(prod => prod.Id == id);
+            await Products.DeleteOneAsync(prod => prod.Id == id);
         }
         /// <summary>
-        /// 
+        /// Proceso de eliminación de un producto, síncrono.
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        /// <param name="id">Identificación de un producto</param>
+        /// <returns>Retorna un valor vacio con resultado ok</returns>
         public void Remove(string id)
         {
-             _products.DeleteOneAsync(prod => prod.Id == id);
+            Products.DeleteOne(prod => prod.Id == id);
+        }
+
+        /// <summary>
+        /// Verifica si un objeto buscado o consultado es Nulo
+        /// </summary>
+        /// <param name="model">retorna una exception de tipo httoCode</param>
+        private void CheckIsNotNull(ProductApi model)
+        {
+            if (model == null)
+            {
+                throw new HttpException(new List<string> { "Producto no encontrado"}, HttpStatusCode.NotFound);
+            }
         }
     }
 }

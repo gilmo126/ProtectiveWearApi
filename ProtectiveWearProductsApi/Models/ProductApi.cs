@@ -1,42 +1,31 @@
-﻿
-using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
+﻿using MongoDB.Bson.Serialization.Attributes;
 using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
+
 namespace ProtectiveWearProductsApi.Models
 {
     /// <summary>
     /// 
     /// </summary>
-    public class Product
+    public class ProductApi
     {
-        /// <summary>
-        /// Propiedad que toma el id del producto asigando por la base de datos.
-        /// </summary>
-        [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string Id { get; set; }
-
         /// <summary>
         /// Propiedad que toma el nombre del producto.
         /// </summary>
         [BsonElement("Nombre")]
-        [JsonProperty("Nombre")]
-        [Required]
+        [JsonProperty("Nombre")]      
         public string Nombre { get; set; }
 
         /// <summary>
         /// Propiedad que toma la presentación del producto.
         /// </summary>
         [BsonElement("Presentacion")]
-        [Required]
         public string Presentacion { get; set; }
 
         /// <summary>
         /// Propiedad que toma la descripción del producto.
         /// </summary>
         [BsonElement("Descripcion")]
-        [Required]
         public string Descripcion { get; set; }
 
         /// <summary>
@@ -46,15 +35,5 @@ namespace ProtectiveWearProductsApi.Models
         [Display(Name = "Precio($)")]
         [DisplayFormat(DataFormatString = "{0:#,0}")]
         public decimal Precio { get; set; }
-
-        /// <summary>
-        /// Propiedad que toma la ruta de la imagen asociada al producto.
-        /// </summary>
-        [BsonElement("ImageUrl")]
-        [Display(Name = "Imagen")]
-        [DataType(DataType.ImageUrl)]
-        [Required]
-        public string ImageUrl { get; set; }
     }
-
 }

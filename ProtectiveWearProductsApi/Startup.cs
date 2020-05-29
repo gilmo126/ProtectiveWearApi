@@ -10,6 +10,7 @@ using Microsoft.OpenApi.Models;
 using System.IO;
 using System;
 using System.Reflection;
+using ProtectiveWearProductsApi.Filters;
 
 namespace ProtectiveWearProductsApi
 {
@@ -29,7 +30,7 @@ namespace ProtectiveWearProductsApi
             services.Configure<ProductsDatabaseSettings>(
         Configuration.GetSection(nameof(ProductsDatabaseSettings)));
 
-            services.AddSingleton<IProductsDatabaseSettings>(sp =>
+            services.AddSingleton<IProductsDatabaseSettings>(sp =>               
                 sp.GetRequiredService<IOptions<ProductsDatabaseSettings>>().Value);
 
             services.AddSingleton<ProductService>();
@@ -55,7 +56,10 @@ namespace ProtectiveWearProductsApi
                 c.IncludeXmlComments(xmlPath);
             });
 
-            
+            services.AddMvc(options =>
+            {
+                options.Filters.Add(item: new HttpExceptionFilter());
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

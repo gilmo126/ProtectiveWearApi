@@ -4,40 +4,45 @@
         <name>ProtectiveWearProductsApi</name>
     </assembly>
     <members>
+        <member name="T:ProtectiveWearProductsApi.Controllers.ProductsController">
+            <summary>
+            Controlador encargado de realizar las operaciones crud sobre el objeto productos.
+            </summary>
+        </member>
         <member name="F:ProtectiveWearProductsApi.Controllers.ProductsController._productService">
             <summary>
-            Propiedad que permite aplicar una injeccion en el constructor para invocar los metodos del servicio
+            Propiedad que permite aplicar una injeccion en el constructor para invocar los metodos del servicio.
             </summary>
         </member>
         <member name="M:ProtectiveWearProductsApi.Controllers.ProductsController.#ctor(ProtectiveWearProductsApi.Services.ProductService)">
             <summary>
-            Constructor de la clase
+            Constructor de la clase.
             </summary>
             <param name="productService"></param>
         </member>
         <member name="M:ProtectiveWearProductsApi.Controllers.ProductsController.Products">
             <summary>
-            Proceso que consulta una lista de productos
+            Proceso que consulta una lista de productos.
             </summary>
-            <returns>Retorna una lista de obketos de tipo producto</returns>
+            <returns>Retorna una lista de objetos de tipo producto</returns>
         </member>
         <member name="M:ProtectiveWearProductsApi.Controllers.ProductsController.GetProduct(System.String)">
             <summary>
-            Proceso para consultar el detalle de un producto
+            Proceso para consultar el detalle de un producto.
             </summary>
             <param name="id">Identificación de un producto</param>
             <returns>Retorna la información de tallada de un producto</returns>
         </member>
         <member name="M:ProtectiveWearProductsApi.Controllers.ProductsController.Create(ProtectiveWearProductsApi.Models.Product)">
             <summary>
-            Proceso de creación de un producto
+            Proceso de creación de un producto.
             </summary>
             <param name="model">Objeto de tipo producto</param>
             <returns>Retorna el nevo objeto creado con su id</returns>
         </member>
         <member name="M:ProtectiveWearProductsApi.Controllers.ProductsController.Update(System.String,ProtectiveWearProductsApi.Models.Product)">
             <summary>
-            Proceso de actualización de un producto
+            Proceso de actualización de un producto.
             </summary>
             <param name="id">Identificación de un producto</param>
             <param name="prod">Objeto de tipo producto</param>
@@ -45,91 +50,241 @@
         </member>
         <member name="M:ProtectiveWearProductsApi.Controllers.ProductsController.Delete(System.String)">
             <summary>
-            Proceso de eliminación de un producto
+            Proceso de eliminación de un producto.
             </summary>
             <param name="id">Identificación de un producto</param>
             <returns>Retorna un valor vacio con resultado ok</returns>
         </member>
-        <member name="M:ProtectiveWearProductsApi.Services.ProductService.#ctor(ProtectiveWearProductsApi.Models.IProductsDatabaseSettings)">
+        <member name="T:ProtectiveWearProductsApi.Excepciones.HttpException">
+            <summary>
+            Clase encargada de manejar las excepciones de error en Http asociadas a los endpoints
+            </summary>
+        </member>
+        <member name="P:ProtectiveWearProductsApi.Excepciones.HttpException.ErrorCode">
+            <summary>
+            Propiedad que toma un codigo de error de tipo Http
+            </summary>
+        </member>
+        <member name="P:ProtectiveWearProductsApi.Excepciones.HttpException.Messages">
+            <summary>
+            propiedad que almacena mensaje de errores.
+            </summary>
+        </member>
+        <member name="M:ProtectiveWearProductsApi.Excepciones.HttpException.#ctor">
+            <summary>
+            Constructor de la clase que por default toma una lista de mensajes de errores.
+            </summary>
+        </member>
+        <member name="M:ProtectiveWearProductsApi.Excepciones.HttpException.#ctor(System.Net.HttpStatusCode)">
+            <summary>
+            Retorna un codido error Http con el que se disponga.
+            </summary>
+            <param name="errorCode">Codigo error Http</param>
+        </member>
+        <member name="M:ProtectiveWearProductsApi.Excepciones.HttpException.#ctor(System.Collections.Generic.List{System.String},System.Net.HttpStatusCode)">
+            <summary>
+            Retorna una lista de errores junto con el codigo de error que disponga el uso.
+            </summary>
+            <param name="messages">listado de mensajes</param>
+            <param name="errorCode">Codigo error Http</param>
+        </member>
+        <member name="T:ProtectiveWearProductsApi.Filters.HttpExceptionFilter">
+            <summary>
+            Calse encargada de filtrar las peticiones http y devolver aquellas no exitosas, con algun codigo de error.
+            </summary>
+        </member>
+        <member name="M:ProtectiveWearProductsApi.Filters.HttpExceptionFilter.OnException(Microsoft.AspNetCore.Mvc.Filters.ExceptionContext)">
+            <summary>
+            Encargado de filtrar las exceptiones a traves de peticiones HTTP.
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="T:ProtectiveWearProductsApi.Models.Product">
             <summary>
             
             </summary>
-            <param name="setting"></param>
+        </member>
+        <member name="P:ProtectiveWearProductsApi.Models.Product.Id">
+            <summary>
+            Propiedad que toma el id del producto asigando por la base de datos.
+            </summary>
+        </member>
+        <member name="P:ProtectiveWearProductsApi.Models.Product.Nombre">
+            <summary>
+            Propiedad que toma el nombre del producto.
+            </summary>
+        </member>
+        <member name="P:ProtectiveWearProductsApi.Models.Product.Presentacion">
+            <summary>
+            Propiedad que toma la presentación del producto.
+            </summary>
+        </member>
+        <member name="P:ProtectiveWearProductsApi.Models.Product.Descripcion">
+            <summary>
+            Propiedad que toma la descripción del producto.
+            </summary>
+        </member>
+        <member name="P:ProtectiveWearProductsApi.Models.Product.Precio">
+            <summary>
+            Propiedad que toma el precion del producto.
+            </summary>
+        </member>
+        <member name="P:ProtectiveWearProductsApi.Models.Product.ImageUrl">
+            <summary>
+            Propiedad que toma la ruta de la imagen asociada al producto.
+            </summary>
+        </member>
+        <member name="T:ProtectiveWearProductsApi.Models.ProductApi">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ProtectiveWearProductsApi.Models.ProductApi.Nombre">
+            <summary>
+            Propiedad que toma el nombre del producto.
+            </summary>
+        </member>
+        <member name="P:ProtectiveWearProductsApi.Models.ProductApi.Presentacion">
+            <summary>
+            Propiedad que toma la presentación del producto.
+            </summary>
+        </member>
+        <member name="P:ProtectiveWearProductsApi.Models.ProductApi.Descripcion">
+            <summary>
+            Propiedad que toma la descripción del producto.
+            </summary>
+        </member>
+        <member name="P:ProtectiveWearProductsApi.Models.ProductApi.Precio">
+            <summary>
+            Propiedad que toma el precion del producto.
+            </summary>
+        </member>
+        <member name="T:ProtectiveWearProductsApi.Models.ProductsDatabaseSettings">
+            <summary>
+            Clase encargada de tomar los valores del config para su validacion en la conexion con la base de datos
+            Implementa de la interface IProductsDatabaseSettings.
+            </summary>
+        </member>
+        <member name="P:ProtectiveWearProductsApi.Models.ProductsDatabaseSettings.ProductsCollectionName">
+            <summary>
+            Captura el nombre de la tabla afectada, al iniciar la conexion.
+            </summary>
+        </member>
+        <member name="P:ProtectiveWearProductsApi.Models.ProductsDatabaseSettings.ConnectionString">
+            <summary>
+            Captura el nombre del host o la url junto con el encabezado de la base de datos, Ejemplo mongodb://
+            </summary>
+        </member>
+        <member name="P:ProtectiveWearProductsApi.Models.ProductsDatabaseSettings.DatabaseName">
+            <summary>
+            Captura el nombre de la base de datos a almacenar.
+            </summary>
+        </member>
+        <member name="T:ProtectiveWearProductsApi.Models.IProductsDatabaseSettings">
+            <summary>
+            Interface que implementa las propiedades basicas para identificar la cadena de conexion.
+            </summary>
+        </member>
+        <member name="P:ProtectiveWearProductsApi.Models.IProductsDatabaseSettings.ProductsCollectionName">
+            <summary>
+            Captura el nombre de la tabla afectada, al iniciar la conexion.
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:ProtectiveWearProductsApi.Models.IProductsDatabaseSettings.ConnectionString" -->
+        <member name="P:ProtectiveWearProductsApi.Models.IProductsDatabaseSettings.DatabaseName">
+            <summary>
+            Captura el nombre de la base de datos a almacenar.
+            </summary>
+        </member>
+        <member name="T:ProtectiveWearProductsApi.Services.ProductService">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ProtectiveWearProductsApi.Services.ProductService.#ctor(ProtectiveWearProductsApi.Models.IProductsDatabaseSettings)">
+            <summary>
+            Constructor de la clase
+            </summary>
+            <param name="setting">Toma una extesion de los parametros configurables de la cadena de conexion</param>
+        </member>
+        <member name="P:ProtectiveWearProductsApi.Services.ProductService.Products">
+            <summary>
+            propiedad de tipo IMongoCollection, para tomar la coleccion a mostrar
+            </summary>
         </member>
         <member name="M:ProtectiveWearProductsApi.Services.ProductService.Get">
             <summary>
-            
+            Proceso que consulta una lista de productos, de forma síncrono.
             </summary>
-            <returns></returns>
+            <returns>Retorna una lista de objetos de tipo producto</returns>
         </member>
         <member name="M:ProtectiveWearProductsApi.Services.ProductService.GetAsync">
             <summary>
-            
+            Proceso que consulta una lista de productos, de forma asíncrono.
             </summary>
-            <returns></returns>
+            <returns>Retorna una lista de objetos de tipo producto</returns>
         </member>
         <member name="M:ProtectiveWearProductsApi.Services.ProductService.GetAsync(System.String)">
             <summary>
-            
+            Proceso para consultar el detalle de un producto, de forma asíncrono.
             </summary>
-            <param name="id"></param>
-            <returns></returns>
+            <param name="id">Identificación de un producto</param>
+            <returns>Retorna la información de tallada de un producto</returns>
+        </member>
+        <member name="M:ProtectiveWearProductsApi.Services.ProductService.Get(System.String)">
+            <summary>
+            Proceso para consultar el detalle de un producto, de forma síncrono.
+            </summary>
+            <param name="id">Identificación de un producto</param>
+            <returns>Retorna la información de tallada de un producto</returns>
         </member>
         <member name="M:ProtectiveWearProductsApi.Services.ProductService.CreateAsync(ProtectiveWearProductsApi.Models.Product)">
             <summary>
-            
+            Proceso de creación de un producto, asíncrono.
             </summary>
-            <param name="prod"></param>
-            <returns></returns>
+            <param name="model">Objeto de tipo producto</param>
+            <returns>Retorna el nevo objeto creado con su id</returns>
         </member>
         <member name="M:ProtectiveWearProductsApi.Services.ProductService.Create(ProtectiveWearProductsApi.Models.Product)">
             <summary>
-            
+            Proceso de creación de un producto, síncrono.
             </summary>
-            <param name="prod"></param>
-            <returns></returns>
+            <param name="model">Objeto de tipo producto</param>
+            <returns>Retorna el nevo objeto creado con su id</returns>
         </member>
         <member name="M:ProtectiveWearProductsApi.Services.ProductService.Update(System.String,ProtectiveWearProductsApi.Models.Product)">
             <summary>
-            
+            Proceso de actualización de un producto, síncrono.
             </summary>
-            <param name="id"></param>
-            <param name="prodIn"></param>
+            <param name="id">Identificación de un producto</param>
+            <param name="model">Objeto de tipo producto</param>
         </member>
         <member name="M:ProtectiveWearProductsApi.Services.ProductService.UpdateAsync(System.String,ProtectiveWearProductsApi.Models.Product)">
             <summary>
-            
+            Proceso de actualización de un producto, asíncrono.
             </summary>
-            <param name="id"></param>
-            <param name="prodIn"></param>
-        </member>
-        <member name="M:ProtectiveWearProductsApi.Services.ProductService.RemoveAsync(ProtectiveWearProductsApi.Models.Product)">
-            <summary>
-            
-            </summary>
-            <param name="prodIn"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ProtectiveWearProductsApi.Services.ProductService.Remove(ProtectiveWearProductsApi.Models.Product)">
-            <summary>
-            
-            </summary>
-            <param name="prodIn"></param>
-            <returns></returns>
+            <param name="id">Identificación de un producto</param>
+            <param name="model">Objeto de tipo producto</param>
         </member>
         <member name="M:ProtectiveWearProductsApi.Services.ProductService.RemoveAsync(System.String)">
             <summary>
-            
+            Proceso de eliminación de un producto, asíncrono.
             </summary>
             <param name="id"></param>
-            <returns></returns>
+            <returns>Retorna un valor vacio con resultado ok</returns>
         </member>
         <member name="M:ProtectiveWearProductsApi.Services.ProductService.Remove(System.String)">
             <summary>
-            
+            Proceso de eliminación de un producto, síncrono.
             </summary>
-            <param name="id"></param>
-            <returns></returns>
+            <param name="id">Identificación de un producto</param>
+            <returns>Retorna un valor vacio con resultado ok</returns>
+        </member>
+        <member name="M:ProtectiveWearProductsApi.Services.ProductService.CheckIsNotNull(ProtectiveWearProductsApi.Models.ProductApi)">
+            <summary>
+            Verifica si un objeto buscado o consultado es Nulo
+            </summary>
+            <param name="model">retorna una exception de tipo httoCode</param>
         </member>
     </members>
 </doc>
