@@ -131,19 +131,24 @@ namespace ProtectiveWearSecurity.Controllers
                         new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
                     };
 
+                var expiration = DateTime.UtcNow.AddHours(1);
+
                 var token = new JwtSecurityToken
                 (
                     issuer: _configuration["Token:Issuer"],
                     audience: _configuration["Token:Audience"],
                     claims: claims,
-                    expires: DateTime.UtcNow.AddDays(60),
+                    expires: expiration,
                     notBefore: DateTime.UtcNow,
                     signingCredentials: new SigningCredentials(new SymmetricSecurityKey
                                 (Encoding.UTF8.GetBytes(_configuration["Token:Key"])),
                             SecurityAlgorithms.HmacSha256)
                 );
+                 
 
-                return Ok(new JwtSecurityTokenHandler().WriteToken(token));
+                return Ok(new { 
+                    token = new JwtSecurityTokenHandler().WriteToken(token),
+                    expiration = expiration});
             }
             else
             {
