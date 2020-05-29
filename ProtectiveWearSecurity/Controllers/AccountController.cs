@@ -46,6 +46,11 @@ namespace ProtectiveWearSecurity.Controllers
             this._configuration = configuration;
         }
 
+        /// <summary>
+        /// Proceso encargado de aplicar la identificacón del usaurio y la generación del token.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost("login")]
         [AllowAnonymous]
         public async Task<IActionResult> Login([FromBody] LoginApiResource model)
