@@ -123,8 +123,6 @@ C:\Users\guigi\Source\Repos\ProtectiveWearApi\ProtectiveWearSecurity\bin\Debug\n
 C:\Users\guigi\Source\Repos\ProtectiveWearApi\ProtectiveWearSecurity\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 C:\Users\guigi\Source\Repos\ProtectiveWearApi\ProtectiveWearSecurity\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Tokens.dll
 C:\Users\guigi\Source\Repos\ProtectiveWearApi\ProtectiveWearSecurity\bin\Debug\netcoreapp3.1\System.IdentityModel.Tokens.Jwt.dll
-C:\Users\guigi\Source\Repos\ProtectiveWearApi\ProtectiveWearSecurity\obj\Debug\netcoreapp3.1\ProtectiveWearSecurity.csproj.CoreCompileInputs.cache
-C:\Users\guigi\Source\Repos\ProtectiveWearApi\ProtectiveWearSecurity\obj\Debug\netcoreapp3.1\ProtectiveWearSecurity.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\guigi\OneDrive\Documentos\ProtectiveWearApi\ProtectiveWearSecurity\bin\Debug\netcoreapp3.1\appsettings.Development.json
 C:\Users\guigi\OneDrive\Documentos\ProtectiveWearApi\ProtectiveWearSecurity\bin\Debug\netcoreapp3.1\appsettings.json
 C:\Users\guigi\OneDrive\Documentos\ProtectiveWearApi\ProtectiveWearSecurity\bin\Debug\netcoreapp3.1\Properties\launchSettings.json
@@ -252,3 +250,11 @@ C:\Users\guigi\OneDrive\Documentos\ProtectiveWearApi\ProtectiveWearSecurity\obj\
 C:\Users\guigi\OneDrive\Documentos\ProtectiveWearApi\ProtectiveWearSecurity\obj\Debug\netcoreapp3.1\ProtectiveWearSecurity.dll
 C:\Users\guigi\OneDrive\Documentos\ProtectiveWearApi\ProtectiveWearSecurity\obj\Debug\netcoreapp3.1\ProtectiveWearSecurity.pdb
 C:\Users\guigi\OneDrive\Documentos\ProtectiveWearApi\ProtectiveWearSecurity\obj\Debug\netcoreapp3.1\ProtectiveWearSecurity.genruntimeconfig.cache
+C:\Users\guigi\source\repos\ProtectiveWearApi\ProtectiveWearSecurity\bin\Debug\netcoreapp3.1\Microsoft.OpenApi.dll
+C:\Users\guigi\source\repos\ProtectiveWearApi\ProtectiveWearSecurity\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\guigi\source\repos\ProtectiveWearApi\ProtectiveWearSecurity\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\guigi\source\repos\ProtectiveWearApi\ProtectiveWearSecurity\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\guigi\source\repos\ProtectiveWearApi\ProtectiveWearSecurity\bin\Debug\netcoreapp3.1\ProtectiveWearSecurity.xml
+C:\Users\guigi\source\repos\ProtectiveWearApi\ProtectiveWearSecurity\obj\Debug\netcoreapp3.1\ProtectiveWearSecurity.csproj.CoreCompileInputs.cache
+C:\Users\guigi\source\repos\ProtectiveWearApi\ProtectiveWearSecurity\obj\Debug\netcoreapp3.1\ProtectiveWearSecurity.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\guigi\source\repos\ProtectiveWearApi\ProtectiveWearSecurity\obj\Debug\netcoreapp3.1\ProtectiveWearSecurity.MvcApplicationPartsAssemblyInfo.cache

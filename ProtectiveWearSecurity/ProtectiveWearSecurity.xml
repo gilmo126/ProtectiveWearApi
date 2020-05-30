@@ -1,0 +1,126 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ProtectiveWearSecurity</name>
+    </assembly>
+    <members>
+        <member name="T:ProtectiveWearSecurity.Controllers.AccountController">
+            <summary>
+            Clase encargada de generar la autenticación
+            </summary>    
+        </member>
+        <member name="M:ProtectiveWearSecurity.Controllers.AccountController.#ctor(Microsoft.AspNetCore.Identity.UserManager{ProtectiveWearSecurity.Models.ApplicationUser},Microsoft.AspNetCore.Identity.SignInManager{ProtectiveWearSecurity.Models.ApplicationUser},Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Constructor de la clase.
+            </summary>
+            <param name="userManager"></param>
+            <param name="signInManager"></param>
+            <param name="configuration"></param>
+        </member>
+        <member name="M:ProtectiveWearSecurity.Controllers.AccountController.Login(ProtectiveWearSecurity.Models.LoginApiResource)">
+            <summary>
+            Proceso encargado de aplicar la identificacón del usaurio y la generación del token.
+            </summary>
+            <param name="model">Objeto de tipo usuario con datos de identificación.</param>
+            <returns>Retorna un token valido para autorización y los datos del usuario identificado.</returns>
+        </member>
+        <member name="M:ProtectiveWearSecurity.Controllers.AccountController.Logout">
+            <summary>
+            Método encargado de cerrar la sesion.
+            </summary>
+            <returns>retorna una respuesa de salida</returns>
+        </member>
+        <member name="M:ProtectiveWearSecurity.Controllers.AccountController.Register(ProtectiveWearSecurity.Models.RegisterApiResource)">
+            <summary>
+            Método encargado de registrar un nuevo usuario.
+            </summary>
+            <param name="model">Objeto de tipo usuario con lo datos para el registro.</param>
+            <returns>Retorna los datos del usuario registrado.</returns>
+        </member>
+        <member name="M:ProtectiveWearSecurity.Controllers.AccountController.AddErrors(Microsoft.AspNetCore.Identity.IdentityResult)">
+            <summary>
+            Método encargado de interpretar los errores que puedan presentarsen en uso del api.
+            </summary>
+            <param name="result">retorna un mensaje de error.</param>
+        </member>
+        <member name="M:ProtectiveWearSecurity.Controllers.AccountController.GetToken(ProtectiveWearSecurity.Models.LoginApiResource)">
+            <summary>
+            Método encargado de generar el token despues de validar la identificación del usuario.
+            </summary>
+            <param name="model">Objeto de tipo usuario con datos de identificación.</param>
+            <returns>Retorna un token valido para autorización y los datos del usuario identificado.</returns>
+        </member>
+        <member name="P:ProtectiveWearSecurity.Models.LoginApiResource.Email">
+            <summary>
+            Permite tomar el valor de un correo electronico
+            </summary>
+        </member>
+        <member name="P:ProtectiveWearSecurity.Models.LoginApiResource.Password">
+            <summary>
+            Permite tomar el valor de un password
+            </summary>
+        </member>
+        <member name="P:ProtectiveWearSecurity.Models.Product.Id">
+            <summary>
+            Propiedad que toma el id del producto asigando por la base de datos.
+            </summary>
+        </member>
+        <member name="P:ProtectiveWearSecurity.Models.Product.Nombre">
+            <summary>
+            Propiedad que toma el nombre del producto.
+            </summary>
+        </member>
+        <member name="P:ProtectiveWearSecurity.Models.Product.Presentacion">
+            <summary>
+            Propiedad que toma la presentación del producto.
+            </summary>        
+        </member>
+        <member name="P:ProtectiveWearSecurity.Models.Product.Descripcion">
+            <summary>
+            Propiedad que toma la descripción del producto.
+            </summary>
+        </member>
+        <member name="P:ProtectiveWearSecurity.Models.Product.Precio">
+            <summary>
+            Propiedad que toma el precion del producto.
+            </summary>
+        </member>
+        <member name="P:ProtectiveWearSecurity.Models.Product.ImageUrl">
+            <summary>
+            Propiedad que toma la ruta de la imagen asociada al producto.
+            </summary>
+        </member>
+        <member name="P:ProtectiveWearSecurity.Models.ProductApiModel.Nombre">
+            <summary>
+            Propiedad que toma el nombre del producto.
+            </summary>
+        </member>
+        <member name="P:ProtectiveWearSecurity.Models.ProductApiModel.Presentacion">
+            <summary>
+            Propiedad que toma la presentación del producto.
+            </summary>
+        </member>
+        <member name="P:ProtectiveWearSecurity.Models.ProductApiModel.Descripcion">
+            <summary>
+            Propiedad que toma la descripción del producto.
+            </summary>
+        </member>
+        <member name="P:ProtectiveWearSecurity.Models.ProductApiModel.Precio">
+            <summary>
+            Propiedad que toma el precion del producto.
+            </summary>
+        </member>
+        <member name="T:ProtectiveWearSecurity.Services.AuthOperationFilter">
+            <summary>
+            Clase encargada de filtrar las peticiones cuyas autorizaciones esten individualizadas.
+            </summary>
+        </member>
+        <member name="M:ProtectiveWearSecurity.Services.AuthOperationFilter.Apply(Microsoft.OpenApi.Models.OpenApiOperation,Swashbuckle.AspNetCore.SwaggerGen.OperationFilterContext)">
+            <summary>
+            Metodo instanciado de IOperationFilter con override, para permitir los casos necesario de autorizar.
+            </summary>
+            <param name="operation">Nombre de la operacion a filtrar.</param>
+            <param name="context">Contexto o ambiemte de la operacion filtrada.</param>
+        </member>
+    </members>
+</doc>

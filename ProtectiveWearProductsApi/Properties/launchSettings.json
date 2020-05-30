@@ -29,7 +29,7 @@
     "Docker": {
       "commandName": "Docker",
       "launchBrowser": true,
-      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/api/products",
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}v1/api/products",
       "publishAllPorts": true,
       "useSSL": true
     }

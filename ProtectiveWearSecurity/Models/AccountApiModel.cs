@@ -1,15 +1,10 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
+﻿
 namespace ProtectiveWearSecurity.Models
 {
     /// <summary>
-    /// Clase encargada de tomar los registros del usuario a identificar.
+    /// Clase encargada de serializar los datos del usuario al momento de identificarse, como respuesta de la autenticación exitosa junto con el token.
     /// </summary>
-    public class ApplicationUser : IdentityUser
+    public class AccountApiModel
     {
         /// <summary>
         /// Primer nombre del usuario.
@@ -19,5 +14,10 @@ namespace ProtectiveWearSecurity.Models
         /// Segundo nombre del usuario.
         /// </summary>
         public string LastName { get; set; }
+        /// <summary>
+        /// Emal del usuario.
+        /// </summary>
+        public string Email { get; set; }
+
     }
 }

@@ -10,9 +10,10 @@ using Microsoft.AspNetCore.Mvc;
 namespace ProtectiveWearSecurity.Controllers
 {
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    [Route("api/product")]
+    [Route("v1/api/product")]
     [Produces("application/json")]
     public class ProductController : ControllerBase
     {
+
     }
 }

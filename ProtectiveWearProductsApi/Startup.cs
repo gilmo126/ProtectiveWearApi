@@ -81,7 +81,7 @@ namespace ProtectiveWearProductsApi
             // Crea  un middleware para exponer el UI (HTML, JS, CSS, etc.),
             // Especificamos en que endpoint buscara el json.
             app.UseSwaggerUI(c => {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Protective Wear Api V1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Protective Wear Products Api V1");
             });
 
             app.UseEndpoints(endpoints =>
