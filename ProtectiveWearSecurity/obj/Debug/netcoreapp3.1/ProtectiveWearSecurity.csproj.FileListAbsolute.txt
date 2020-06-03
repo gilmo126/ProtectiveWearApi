@@ -255,6 +255,11 @@ C:\Users\guigi\source\repos\ProtectiveWearApi\ProtectiveWearSecurity\bin\Debug\n
 C:\Users\guigi\source\repos\ProtectiveWearApi\ProtectiveWearSecurity\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\guigi\source\repos\ProtectiveWearApi\ProtectiveWearSecurity\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerUI.dll
 C:\Users\guigi\source\repos\ProtectiveWearApi\ProtectiveWearSecurity\bin\Debug\netcoreapp3.1\ProtectiveWearSecurity.xml
+C:\Users\guigi\source\repos\ProtectiveWearApi\ProtectiveWearSecurity\bin\Debug\netcoreapp3.1\System.Net.Http.Formatting.dll
+C:\Users\guigi\source\repos\ProtectiveWearApi\ProtectiveWearSecurity\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
 C:\Users\guigi\source\repos\ProtectiveWearApi\ProtectiveWearSecurity\obj\Debug\netcoreapp3.1\ProtectiveWearSecurity.csproj.CoreCompileInputs.cache
 C:\Users\guigi\source\repos\ProtectiveWearApi\ProtectiveWearSecurity\obj\Debug\netcoreapp3.1\ProtectiveWearSecurity.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\guigi\source\repos\ProtectiveWearApi\ProtectiveWearSecurity\obj\Debug\netcoreapp3.1\ProtectiveWearSecurity.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\guigi\source\repos\ProtectiveWearApi\ProtectiveWearSecurity\bin\Debug\netcoreapp3.1\System.Configuration.ConfigurationManager.dll
+C:\Users\guigi\source\repos\ProtectiveWearApi\ProtectiveWearSecurity\bin\Debug\netcoreapp3.1\System.Security.Cryptography.ProtectedData.dll
+C:\Users\guigi\source\repos\ProtectiveWearApi\ProtectiveWearSecurity\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll

@@ -10,9 +10,9 @@ namespace ProtectiveWearProductsApi.Controllers
     /// <summary>
     /// Controlador encargado de realizar las operaciones crud sobre el objeto productos.
     /// </summary>
-    [Route("v1/api/[controller]")]
-    [ApiController]
-    public class ProductsController : ControllerBase
+    [Route("v1/api/product")]
+    [Produces("application/json")]
+    public class ProductController : ControllerBase
     {
         /// <summary>
         /// Propiedad que permite aplicar una injeccion en el constructor para invocar los metodos del servicio.
@@ -23,7 +23,7 @@ namespace ProtectiveWearProductsApi.Controllers
         /// Constructor de la clase.
         /// </summary>
         /// <param name="productService"></param>
-        public ProductsController(ProductService productService)
+        public ProductController(ProductService productService)
         {
             this._productService = productService;
         }
@@ -41,8 +41,8 @@ namespace ProtectiveWearProductsApi.Controllers
         /// <summary>
         /// Proceso para consultar el detalle de un producto.
         /// </summary>
-        /// <param name="id">Identificación de un producto</param>
-        /// <returns>Retorna la información de tallada de un producto</returns>
+        /// <param name="id">Identificación de un producto.</param>
+        /// <returns>Retorna la información de tallada de un producto.</returns>
         [HttpGet("{id}", Name = "GetProductById")]
         public async Task<ActionResult<ProductApi>> GetProduct(string id)
         {
@@ -53,8 +53,8 @@ namespace ProtectiveWearProductsApi.Controllers
         /// <summary>
         /// Proceso de creación de un producto.
         /// </summary>
-        /// <param name="model">Objeto de tipo producto</param>
-        /// <returns>Retorna el nevo objeto creado con su id</returns>
+        /// <param name="model">Objeto de tipo producto.</param>
+        /// <returns>Retorna el nevo objeto creado con su id.</returns>
         [HttpPost]
         public async Task<ActionResult<Product>> Create([FromBody]Product model)
         {
@@ -70,17 +70,17 @@ namespace ProtectiveWearProductsApi.Controllers
         /// <summary>
         /// Proceso de actualización de un producto.
         /// </summary>
-        /// <param name="id">Identificación de un producto</param>
-        /// <param name="prod">Objeto de tipo producto</param>
-        /// <returns>Retorna un valor vacio con resultado ok</returns>
+        /// <param name="id">Identificación de un producto.</param>
+        /// <param name="model">Objeto de tipo producto.</param>
+        /// <returns>Retorna un valor vacio con resultado ok.</returns>
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(string id, [FromBody] Product prod)
+        public async Task<IActionResult> Update(string id, [FromBody] Product model)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            await _productService.UpdateAsync(id, prod);
+            await _productService.UpdateAsync(id, model);
             return NoContent();
         }
 
@@ -88,7 +88,7 @@ namespace ProtectiveWearProductsApi.Controllers
         /// Proceso de eliminación de un producto.
         /// </summary>
         /// <param name="id">Identificación de un producto</param>
-        /// <returns>Retorna un valor vacio con resultado ok</returns>
+        /// <returns>Retorna un valor vacio con resultado ok.</returns>
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(string id)
         {

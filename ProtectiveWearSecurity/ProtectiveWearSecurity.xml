@@ -50,6 +50,141 @@
             <param name="model">Objeto de tipo usuario con datos de identificación.</param>
             <returns>Retorna un token valido para autorización y los datos del usuario identificado.</returns>
         </member>
+        <member name="T:ProtectiveWearSecurity.Controllers.ProductController">
+            <summary>
+            Controlador y rutas de la Uri.
+            </summary>
+        </member>
+        <member name="F:ProtectiveWearSecurity.Controllers.ProductController._productService">
+            <summary>
+            Propiedad que permite aplicar una injeccion en el constructor para invocar los metodos del servicio.
+            </summary>
+        </member>
+        <member name="M:ProtectiveWearSecurity.Controllers.ProductController.#ctor(ProtectiveWearSecurity.Services.ProductService)">
+            <summary>
+            Constructor de la clase.
+            </summary>
+            <param name="productService"></param>
+        </member>
+        <member name="M:ProtectiveWearSecurity.Controllers.ProductController.Products">
+            <summary>
+            Proceso que consulta una lista de productos.
+            </summary>
+            <returns>Retorna una lista de objetos de tipo producto</returns>
+        </member>
+        <member name="M:ProtectiveWearSecurity.Controllers.ProductController.GetProduct(System.String)">
+            <summary>
+            Proceso para consultar el detalle de un producto.
+            </summary>
+            <param name="id">Identificación de un producto.</param>
+            <returns>Retorna la información de tallada de un producto.</returns>
+        </member>
+        <member name="M:ProtectiveWearSecurity.Controllers.ProductController.Create(ProtectiveWearSecurity.Models.Product)">
+            <summary>
+            Proceso de creación de un producto.
+            </summary>
+            <param name="model">Objeto de tipo producto.</param>
+            <returns>Retorna el nevo objeto creado con su id.</returns>
+        </member>
+        <member name="M:ProtectiveWearSecurity.Controllers.ProductController.Update(System.String,ProtectiveWearSecurity.Models.Product)">
+            <summary>
+            Proceso de actualización de un producto.
+            </summary>
+            <param name="id">Identificación de un producto.</param>
+            <param name="model">Objeto de tipo producto.</param>
+            <returns>Retorna un valor vacio con resultado ok.</returns>
+        </member>
+        <member name="M:ProtectiveWearSecurity.Controllers.ProductController.Delete(System.String)">
+            <summary>
+            Proceso de eliminación de un producto.
+            </summary>
+            <param name="id">Identificación de un producto</param>
+            <returns>Retorna un valor vacio con resultado ok.</returns>
+        </member>
+        <member name="T:ProtectiveWearSecurity.Exceptions.HttpException">
+            <summary>
+            Clase encargada de manejar las excepciones de error en Http asociadas a los endpoints
+            </summary>
+        </member>
+        <member name="P:ProtectiveWearSecurity.Exceptions.HttpException.ErrorCode">
+            <summary>
+            Propiedad que toma un codigo de error de tipo Http
+            </summary>
+        </member>
+        <member name="P:ProtectiveWearSecurity.Exceptions.HttpException.Messages">
+            <summary>
+            propiedad que almacena mensaje de errores.
+            </summary>
+        </member>
+        <member name="M:ProtectiveWearSecurity.Exceptions.HttpException.#ctor">
+            <summary>
+            Constructor de la clase que por default toma una lista de mensajes de errores.
+            </summary>
+        </member>
+        <member name="M:ProtectiveWearSecurity.Exceptions.HttpException.#ctor(System.Net.HttpStatusCode)">
+            <summary>
+            Retorna un codido error Http con el que se disponga.
+            </summary>
+            <param name="errorCode">Codigo error Http</param>
+        </member>
+        <member name="M:ProtectiveWearSecurity.Exceptions.HttpException.#ctor(System.Collections.Generic.List{System.String},System.Net.HttpStatusCode)">
+            <summary>
+            Retorna una lista de errores junto con el codigo de error que disponga el uso.
+            </summary>
+            <param name="messages">listado de mensajes</param>
+            <param name="errorCode">Codigo error Http</param>
+        </member>
+        <member name="T:ProtectiveWearSecurity.Filters.HttpExceptionFilter">
+            <summary>
+            Calse encargada de filtrar las peticiones http y devolver aquellas no exitosas, con algun codigo de error.
+            </summary>
+        </member>
+        <member name="M:ProtectiveWearSecurity.Filters.HttpExceptionFilter.OnException(Microsoft.AspNetCore.Mvc.Filters.ExceptionContext)">
+            <summary>
+            Encargado de filtrar las exceptiones a traves de peticiones HTTP.
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="T:ProtectiveWearSecurity.Models.AccountApiModel">
+            <summary>
+            Clase encargada de serializar los datos del usuario al momento de identificarse, como respuesta de la autenticación exitosa junto con el token.
+            </summary>
+        </member>
+        <member name="P:ProtectiveWearSecurity.Models.AccountApiModel.FirstName">
+            <summary>
+            Primer nombre del usuario.
+            </summary>
+        </member>
+        <member name="P:ProtectiveWearSecurity.Models.AccountApiModel.LastName">
+            <summary>
+            Segundo nombre del usuario.
+            </summary>
+        </member>
+        <member name="P:ProtectiveWearSecurity.Models.AccountApiModel.Email">
+            <summary>
+            Emal del usuario.
+            </summary>
+        </member>
+        <member name="T:ProtectiveWearSecurity.Models.ApplicationUser">
+            <summary>
+            Clase encargada de tomar los registros del usuario a identificar.
+            </summary>
+        </member>
+        <member name="P:ProtectiveWearSecurity.Models.ApplicationUser.FirstName">
+            <summary>
+            Primer nombre del usuario.
+            </summary>
+        </member>
+        <member name="P:ProtectiveWearSecurity.Models.ApplicationUser.LastName">
+            <summary>
+            Segundo nombre del usuario.
+            </summary>
+        </member>
+        <member name="T:ProtectiveWearSecurity.Models.LoginApiResource">
+            <summary>
+            Clase para tomar los datos a identificar.
+            </summary>
+        </member>
         <member name="P:ProtectiveWearSecurity.Models.LoginApiResource.Email">
             <summary>
             Permite tomar el valor de un correo electronico
@@ -58,6 +193,11 @@
         <member name="P:ProtectiveWearSecurity.Models.LoginApiResource.Password">
             <summary>
             Permite tomar el valor de un password
+            </summary>
+        </member>
+        <member name="T:ProtectiveWearSecurity.Models.Product">
+            <summary>
+            Clase para tomar los datos del producto a recuperar.
             </summary>
         </member>
         <member name="P:ProtectiveWearSecurity.Models.Product.Id">
@@ -90,6 +230,11 @@
             Propiedad que toma la ruta de la imagen asociada al producto.
             </summary>
         </member>
+        <member name="T:ProtectiveWearSecurity.Models.ProductApiModel">
+            <summary>
+            Clase para serializar los productos consultados.
+            </summary>
+        </member>
         <member name="P:ProtectiveWearSecurity.Models.ProductApiModel.Nombre">
             <summary>
             Propiedad que toma el nombre del producto.
@@ -110,6 +255,58 @@
             Propiedad que toma el precion del producto.
             </summary>
         </member>
+        <member name="T:ProtectiveWearSecurity.Models.ProtectiveWearApiDbContext">
+            <summary>
+            Clase instanciada de DBContext, para iniciar la cadena de conexion y el repositorio a consultar.
+            </summary>
+        </member>
+        <member name="M:ProtectiveWearSecurity.Models.ProtectiveWearApiDbContext.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions{ProtectiveWearSecurity.Models.ProtectiveWearApiDbContext})">
+            <summary>
+            Constructor de la clase.
+            </summary>
+            <param name="options">Opciones de conexion.</param>
+        </member>
+        <member name="M:ProtectiveWearSecurity.Models.ProtectiveWearApiDbContext.OnModelCreating(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <summary>
+            
+            </summary>
+            <param name="builder"></param>
+        </member>
+        <member name="M:ProtectiveWearSecurity.Models.ProtectiveWearApiDbContext.#ctor">
+            <summary>
+            Constructor vacio.
+            </summary>
+        </member>
+        <member name="T:ProtectiveWearSecurity.Models.RegisterApiResource">
+            <summary>
+            Clase encargada de tomar los registros del usuario a registrar.
+            </summary>
+        </member>
+        <member name="P:ProtectiveWearSecurity.Models.RegisterApiResource.FirstName">
+            <summary>
+            Primer nombre del usuario.
+            </summary>
+        </member>
+        <member name="P:ProtectiveWearSecurity.Models.RegisterApiResource.LastName">
+            <summary>
+            Segundo nombre del usuario.
+            </summary>
+        </member>
+        <member name="P:ProtectiveWearSecurity.Models.RegisterApiResource.Email">
+            <summary>
+            Email del Usuario.
+            </summary>
+        </member>
+        <member name="P:ProtectiveWearSecurity.Models.RegisterApiResource.Password">
+            <summary>
+            Password del usuario, con un maximo de 6 posiciones.
+            </summary>
+        </member>
+        <member name="P:ProtectiveWearSecurity.Models.RegisterApiResource.ConfirmPassword">
+            <summary>
+            Confirmaación del password.
+            </summary>
+        </member>
         <member name="T:ProtectiveWearSecurity.Services.AuthOperationFilter">
             <summary>
             Clase encargada de filtrar las peticiones cuyas autorizaciones esten individualizadas.
@@ -121,6 +318,56 @@
             </summary>
             <param name="operation">Nombre de la operacion a filtrar.</param>
             <param name="context">Contexto o ambiemte de la operacion filtrada.</param>
+        </member>
+        <member name="M:ProtectiveWearSecurity.Services.ManageEvents.CheckIsNotNull(System.Object)">
+            <summary>
+            Verifica si un objeto buscado o consultado es Nulo
+            </summary>
+            <param name="model">retorna una exception de tipo httoCode</param>
+        </member>
+        <member name="T:ProtectiveWearSecurity.Services.ProductService">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ProtectiveWearSecurity.Services.ProductService.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Connstructor de la clase.
+            </summary>
+        </member>
+        <member name="M:ProtectiveWearSecurity.Services.ProductService.CreateProductAsync(ProtectiveWearSecurity.Models.Product)">
+             <summary>
+            Proceso de creación de un producto, asíncrono.
+             </summary>
+             <param name="model">Objeto de tipo producto.</param>
+             <returns>Retorna el nevo objeto creado con su id</returns>
+        </member>
+        <member name="M:ProtectiveWearSecurity.Services.ProductService.GetProductAsync">
+            <summary>
+            Proceso que consulta una lista de productos, de forma asíncrono.
+            </summary>
+            <returns>Retorna una lista de objetos de tipo producto.</returns>
+        </member>
+        <member name="M:ProtectiveWearSecurity.Services.ProductService.GetProductByIdAsync(System.String)">
+            <summary>
+            Proceso para consultar el detalle de un producto.
+            </summary>
+            <param name="id">dentificación de un producto.</param>
+            <returns>Retorna la información de tallada de un producto.</returns>
+        </member>
+        <member name="M:ProtectiveWearSecurity.Services.ProductService.UpdateProductAsync(ProtectiveWearSecurity.Models.Product)">
+            <summary>
+            Proceso de actualización de un producto.
+            </summary>
+            <param name="model">Objeto de tipo producto.</param>
+            <returns>Retorna un valor vacio con resultado ok.</returns>
+        </member>
+        <member name="M:ProtectiveWearSecurity.Services.ProductService.DeleteProductAsync(System.String)">
+            <summary>
+            Proceso de eliminación de un producto.
+            </summary>
+            <param name="id">Identificación de un producto.</param>
+            <returns>Retorna un valor vacio con resultado ok.</returns>
         </member>
     </members>
 </doc>

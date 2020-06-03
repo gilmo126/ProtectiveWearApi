@@ -14,6 +14,8 @@ using System.Reflection;
 using System;
 using System.IO;
 using ProtectiveWearSecurity.Services;
+using ProtectiveWearSecurity.Filters;
+
 
 namespace ProtectiveWearSecurity
 {
@@ -32,6 +34,7 @@ namespace ProtectiveWearSecurity
             services.AddDbContext<ProtectiveWearApiDbContext>(options =>
             options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
 
+            services.AddSingleton<ProductService>();
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                                                                 .AddEntityFrameworkStores<ProtectiveWearApiDbContext>()
@@ -110,6 +113,11 @@ namespace ProtectiveWearSecurity
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
+            });
+
+            services.AddMvc(options =>
+            {
+                options.Filters.Add(item: new HttpExceptionFilter());
             });
         }
 

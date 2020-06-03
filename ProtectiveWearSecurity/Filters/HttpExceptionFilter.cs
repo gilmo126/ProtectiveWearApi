@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using ProtectiveWearProductsApi.Exceptions;
+using ProtectiveWearSecurity.Exceptions;
 using System.Collections.Generic;
 using System.Net;
 
 /// <summary>
 /// Espacion de nombre de los objetos encargados de filtrar las excepciones
 /// </summary>
-namespace ProtectiveWearProductsApi.Filters
+namespace ProtectiveWearSecurity.Filters
 {
     /// <summary>
     /// Calse encargada de filtrar las peticiones http y devolver aquellas no exitosas, con algun codigo de error.
@@ -18,10 +18,10 @@ namespace ProtectiveWearProductsApi.Filters
         /// Encargado de filtrar las exceptiones a traves de peticiones HTTP.
         /// </summary>
         /// <param name="context"></param>
-        public override void OnException(ExceptionContext context) 
+        public override void OnException(ExceptionContext context)
         {
             var error = new HttpException(
-                new List<string> { "Ayyyy! Internal Server Error"},
+                new List<string> { "Ayyyy! Internal Server Error", context.Exception.Message },
                 HttpStatusCode.InternalServerError);
 
             context.HttpContext.Response.StatusCode = 500;
@@ -33,10 +33,10 @@ namespace ProtectiveWearProductsApi.Filters
 
             }
 
-            context.Result = new JsonResult(new { error = error.Messages, code = error.ErrorCode});
-            base.OnException(context);          
-        
+            context.Result = new JsonResult(new { error = error.Messages, code = error.ErrorCode });
+            base.OnException(context);
+
         }
-        
+
     }
 }

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 namespace ProtectiveWearSecurity.Models
 {
     /// <summary>
-    /// Clase para serializar lso productos consultados.
+    /// Clase para serializar los productos consultados.
     /// </summary>
     public class ProductApiModel
     {

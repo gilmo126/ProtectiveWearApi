@@ -11,6 +11,7 @@ using System.IO;
 using System;
 using System.Reflection;
 using ProtectiveWearProductsApi.Filters;
+using ProtectiveWearProductsApi.Interfaces;
 
 namespace ProtectiveWearProductsApi
 {

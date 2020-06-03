@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net;
-
 /// <summary>
 /// NameSpace que alberga los objetos encargado de manejar las execpciones.
 /// </summary>
-namespace ProtectiveWearProductsApi.Exceptions
+namespace ProtectiveWearSecurity.Exceptions
 {
     /// <summary>
     /// Clase encargada de manejar las excepciones de error en Http asociadas a los endpoints
@@ -25,7 +24,7 @@ namespace ProtectiveWearProductsApi.Exceptions
         /// <summary>
         /// Constructor de la clase que por default toma una lista de mensajes de errores.
         /// </summary>
-        public HttpException() 
+        public HttpException()
         {
             Messages = new List<string>();
         }
@@ -49,6 +48,5 @@ namespace ProtectiveWearProductsApi.Exceptions
             Messages = messages ?? new List<string>();
             ErrorCode = errorCode;
         }
-
     }
 }

@@ -3,7 +3,8 @@ using MongoDB.Driver;
 using ProtectiveWearProductsApi.Models;
 using System.Threading.Tasks;
 using MongoDB.Driver.Linq;
-using ProtectiveWearProductsApi.Excepciones;
+using ProtectiveWearProductsApi.Exceptions;
+using ProtectiveWearProductsApi.Interfaces;
 using System.Net;
 
 namespace ProtectiveWearProductsApi.Services
@@ -58,7 +59,7 @@ namespace ProtectiveWearProductsApi.Services
         /// <summary>
         /// Proceso que consulta una lista de productos, de forma asíncrono.
         /// </summary>
-        /// <returns>Retorna una lista de objetos de tipo producto</returns>
+        /// <returns>Retorna una lista de objetos de tipo producto.</returns>
         public async Task<List<ProductApi>> GetAsync()
         {
             return await Products
@@ -93,7 +94,7 @@ namespace ProtectiveWearProductsApi.Services
                         })
                        .FirstOrDefaultAsync();
 
-            CheckIsNotNull(result);
+            result.CheckIsNotNull();
 
             return result;
         }
@@ -117,7 +118,7 @@ namespace ProtectiveWearProductsApi.Services
                       })
                       .FirstOrDefault();
 
-            CheckIsNotNull(result);
+            result.CheckIsNotNull();
 
             return result;
 
@@ -126,8 +127,8 @@ namespace ProtectiveWearProductsApi.Services
         /// <summary>
         /// Proceso de creación de un producto, asíncrono.
         /// </summary>
-        /// <param name="model">Objeto de tipo producto</param>
-        /// <returns>Retorna el nevo objeto creado con su id</returns>
+        /// <param name="model">Objeto de tipo producto.</param>
+        /// <returns>Retorna el nevo objeto creado con su id.</returns>
         public async Task<Product> CreateAsync(Product model)
         {
             if (model is null)
@@ -201,16 +202,6 @@ namespace ProtectiveWearProductsApi.Services
             Products.DeleteOne(prod => prod.Id == id);
         }
 
-        /// <summary>
-        /// Verifica si un objeto buscado o consultado es Nulo
-        /// </summary>
-        /// <param name="model">retorna una exception de tipo httoCode</param>
-        private void CheckIsNotNull(ProductApi model)
-        {
-            if (model == null)
-            {
-                throw new HttpException(new List<string> { "Producto no encontrado"}, HttpStatusCode.NotFound);
-            }
-        }
+       
     }
 }
