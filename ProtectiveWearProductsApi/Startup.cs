@@ -34,7 +34,7 @@ namespace ProtectiveWearProductsApi
             services.AddSingleton<IProductsDatabaseSettings>(sp =>               
                 sp.GetRequiredService<IOptions<ProductsDatabaseSettings>>().Value);
 
-            services.AddSingleton<ProductService>();
+            services.AddSingleton<IProductService,ProductService>();
 
             services.AddControllers()
                 .AddNewtonsoftJson();

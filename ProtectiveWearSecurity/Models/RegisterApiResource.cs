@@ -21,7 +21,7 @@ namespace ProtectiveWearSecurity.Models
         /// Email del Usuario.
         /// </summary>
         [Required]
-        [EmailAddress]
+        [EmailAddress(ErrorMessage = "Invalid Email Address")]
         public string Email { get; set; }
         /// <summary>
         /// Password del usuario, con un maximo de 6 posiciones.

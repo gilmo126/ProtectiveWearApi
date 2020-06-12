@@ -14,7 +14,7 @@
             Propiedad que permite aplicar una injeccion en el constructor para invocar los metodos del servicio.
             </summary>
         </member>
-        <member name="M:ProtectiveWearProductsApi.Controllers.ProductController.#ctor(ProtectiveWearProductsApi.Services.ProductService)">
+        <member name="M:ProtectiveWearProductsApi.Controllers.ProductController.#ctor(ProtectiveWearProductsApi.Interfaces.IProductService)">
             <summary>
             Constructor de la clase.
             </summary>
@@ -153,6 +153,11 @@
         <member name="T:ProtectiveWearProductsApi.Models.ProductApi">
             <summary>
             
+            </summary>
+        </member>
+        <member name="P:ProtectiveWearProductsApi.Models.ProductApi.Id">
+            <summary>
+            Identificador de Producto
             </summary>
         </member>
         <member name="P:ProtectiveWearProductsApi.Models.ProductApi.Nombre">

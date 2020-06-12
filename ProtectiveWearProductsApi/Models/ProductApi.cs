@@ -10,6 +10,12 @@ namespace ProtectiveWearProductsApi.Models
     public class ProductApi
     {
         /// <summary>
+        /// Identificador de Producto
+        /// </summary>
+        [BsonElement("Id")]
+        [JsonProperty("Id")]
+        public string Id { get; set; }
+        /// <summary>
         /// Propiedad que toma el nombre del producto.
         /// </summary>
         [BsonElement("Nombre")]

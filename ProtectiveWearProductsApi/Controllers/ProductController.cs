@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using ProtectiveWearProductsApi.Interfaces;
 using ProtectiveWearProductsApi.Models;
 using ProtectiveWearProductsApi.Services;
 
@@ -17,13 +18,15 @@ namespace ProtectiveWearProductsApi.Controllers
         /// <summary>
         /// Propiedad que permite aplicar una injeccion en el constructor para invocar los metodos del servicio.
         /// </summary>
-        private readonly ProductService _productService;
+        //private readonly ProductService _productService;
+
+        private readonly IProductService _productService;
 
         /// <summary>
         /// Constructor de la clase.
         /// </summary>
         /// <param name="productService"></param>
-        public ProductController(ProductService productService)
+        public ProductController(IProductService productService)
         {
             this._productService = productService;
         }

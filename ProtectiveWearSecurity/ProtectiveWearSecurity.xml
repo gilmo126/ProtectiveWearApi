@@ -9,7 +9,7 @@
             Clase encargada de generar la autenticación
             </summary>    
         </member>
-        <member name="M:ProtectiveWearSecurity.Controllers.AccountController.#ctor(Microsoft.AspNetCore.Identity.UserManager{ProtectiveWearSecurity.Models.ApplicationUser},Microsoft.AspNetCore.Identity.SignInManager{ProtectiveWearSecurity.Models.ApplicationUser},Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:ProtectiveWearSecurity.Controllers.AccountController.#ctor(Microsoft.AspNetCore.Identity.UserManager{ProtectiveWearSecurity.Models.ApplicationUser},Microsoft.AspNetCore.Identity.SignInManager{ProtectiveWearSecurity.Models.ApplicationUser},Microsoft.Extensions.Logging.ILogger{ProtectiveWearSecurity.Controllers.AccountController},Microsoft.AspNetCore.Identity.UI.Services.IEmailSender,Microsoft.Extensions.Configuration.IConfiguration)">
             <summary>
             Constructor de la clase.
             </summary>
@@ -30,12 +30,48 @@
             </summary>
             <returns>retorna una respuesa de salida</returns>
         </member>
+        <member name="M:ProtectiveWearSecurity.Controllers.AccountController.Lockout">
+            <summary>
+            Método encargado de bloquear un usuario.
+            </summary>
+            <returns>Retorna un error Http 400 "User account locked out."</returns>
+        </member>
+        <member name="M:ProtectiveWearSecurity.Controllers.AccountController.ForgotPassword(ProtectiveWearSecurity.Models.ForgotPasswordModel)">
+            <summary>
+            Método encargado de recuperar un password de usuario olvidado a traves de un link enviado al cliente solicitante. 
+            </summary>
+            <param name="model">Parametro con la información del correo eléctronico del usuario.</param>
+            <returns>retorna una respuesta Http, 200 ("Password reset email sent.") o 400 ("No user with that email address found.")</returns>
+        </member>
+        <member name="M:ProtectiveWearSecurity.Controllers.AccountController.ResetPassword(System.String,System.String)">
+            <summary>
+            Método de tomar un Id Usuario y un token para iniciar el proceso de cambio de password tras ser enviado por Forgotpassword.
+            </summary>
+            <param name="userId">Identificación del usuario</param>
+            <param name="code">Código o token generado por Forgotpassword, por medio de un link enviado al correo del usuario.</param>
+            <returns>Retorna un código 200 (Modelo de identificación del usuario) o 400 ("Invalid confirmation code.")</returns>
+        </member>
+        <member name="M:ProtectiveWearSecurity.Controllers.AccountController.ResetPasswordConfirm(ProtectiveWearSecurity.Models.ResetPasswordModel)">
+            <summary>
+            Método encargado de realizar el cambio del password luego de ser verificado por resetPassword, al generar un token y IdUsuario.
+            </summary>
+            <param name="model">Modelo que contiene la información retornada por ResetPassword, junto con los datos a cambiar.</param>
+            <returns>retorna un codifo 200 ("Password reset successfully.") o 400 ("No user with that email address found.")</returns>
+        </member>
         <member name="M:ProtectiveWearSecurity.Controllers.AccountController.Register(ProtectiveWearSecurity.Models.RegisterApiResource)">
             <summary>
             Método encargado de registrar un nuevo usuario.
             </summary>
             <param name="model">Objeto de tipo usuario con lo datos para el registro.</param>
             <returns>Retorna los datos del usuario registrado.</returns>
+        </member>
+        <member name="M:ProtectiveWearSecurity.Controllers.AccountController.ConfirmEmail(System.String,System.String)">
+            <summary>
+            Método encargado de confirmar el registro del usuario, luego de que se haya dado aceptacion a traves del link de confirmación por la operación register.
+            </summary>
+            <param name="userId">Identificación del usuario</param>
+            <param name="code">Código o token generado por Register, por medio de un link enviado al correo del usuario.</param>
+            <returns>Retorna un codigo http 200("Registration confirmed!") o 400("Something went wrong.")</returns>
         </member>
         <member name="M:ProtectiveWearSecurity.Controllers.AccountController.AddErrors(Microsoft.AspNetCore.Identity.IdentityResult)">
             <summary>
@@ -163,6 +199,11 @@
         <member name="P:ProtectiveWearSecurity.Models.AccountApiModel.Email">
             <summary>
             Emal del usuario.
+            </summary>
+        </member>
+        <member name="P:ProtectiveWearSecurity.Models.AccountApiModel.Id">
+            <summary>
+            Identificaición unica del usuario
             </summary>
         </member>
         <member name="T:ProtectiveWearSecurity.Models.ApplicationUser">
@@ -318,6 +359,48 @@
             </summary>
             <param name="operation">Nombre de la operacion a filtrar.</param>
             <param name="context">Contexto o ambiemte de la operacion filtrada.</param>
+        </member>
+        <member name="T:ProtectiveWearSecurity.Services.EmailSender">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ProtectiveWearSecurity.Services.EmailSender._emailSettings">
+            <summary>
+            Objeto que representa las propiedades del email remitente.
+            </summary>
+        </member>
+        <member name="F:ProtectiveWearSecurity.Services.EmailSender._env">
+            <summary>
+            Objeto que representa las propuedades de tipo host a usar durante en envio.
+            </summary>
+        </member>
+        <member name="M:ProtectiveWearSecurity.Services.EmailSender.#ctor(Microsoft.Extensions.Options.IOptions{ProtectiveWearSecurity.Models.EmailSettings},Microsoft.AspNetCore.Hosting.IHostingEnvironment)">
+            <summary>
+            Constructor de la clase que inyecta la configuracion de la cuenta del correo origen y una propiedad del entorno web
+            ejecutado desde la aplicación.
+            </summary>
+            <param name="emailSettings">Objeto de contiene las propiedades del correo remitente</param>
+            <param name="env">Proporciona información sobre el entorno de alojamiento web en el que se ejecuta una aplicación.</param>
+        </member>
+        <member name="M:ProtectiveWearSecurity.Services.EmailSender.#ctor">
+            <summary>
+            Constructor de la clase vacio.
+            </summary>
+        </member>
+        <member name="M:ProtectiveWearSecurity.Services.EmailSender.SendEmailAsync(System.String,System.String,System.String)">
+            <summary>
+            Método encargado de enviar el email,
+            </summary>
+            <param name="email"></param>
+            <param name="subject"></param>
+            <param name="htmlMessage"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ProtectiveWearSecurity.Services.ManageEvents">
+            <summary>
+            Clase encargada de realizar eventos o tomarlos.
+            </summary>
         </member>
         <member name="M:ProtectiveWearSecurity.Services.ManageEvents.CheckIsNotNull(System.Object)">
             <summary>

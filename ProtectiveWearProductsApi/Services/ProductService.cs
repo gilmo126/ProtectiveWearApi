@@ -12,9 +12,11 @@ namespace ProtectiveWearProductsApi.Services
     /// <summary>
     /// 
     /// </summary>
-    public class ProductService
+    public class ProductService : IProductService
     {
         private readonly IMongoDatabase _productsDB;
+
+        
 
         /// <summary>
         /// Constructor de la clase
@@ -24,7 +26,9 @@ namespace ProtectiveWearProductsApi.Services
         {
             var client = new MongoClient(setting.ConnectionString);
             if (client != null)
+            {
                 _productsDB = client.GetDatabase(setting.DatabaseName);
+            }
         }
 
         /// <summary>
@@ -47,6 +51,7 @@ namespace ProtectiveWearProductsApi.Services
                   .AsQueryable()
                   .Select(x => new ProductApi
                   {
+                      Id = x.Id,
                       Nombre = x.Nombre,
                       Presentacion = x.Presentacion,
                       Descripcion = x.Descripcion,
@@ -66,6 +71,7 @@ namespace ProtectiveWearProductsApi.Services
                   .AsQueryable()
                   .Select(x => new ProductApi
                   {
+                      Id = x.Id,
                       Nombre = x.Nombre,
                       Presentacion = x.Presentacion,
                       Descripcion = x.Descripcion,
@@ -87,6 +93,7 @@ namespace ProtectiveWearProductsApi.Services
                         .Where(prod => prod.Id == id)
                         .Select(p => new ProductApi
                         {
+                            Id = p.Id,
                             Nombre = p.Nombre,
                             Presentacion = p.Presentacion,
                             Descripcion = p.Descripcion,
@@ -111,6 +118,7 @@ namespace ProtectiveWearProductsApi.Services
                       .Where(prod => prod.Id == id)
                       .Select(p => new ProductApi
                       {
+                          Id = p.Id,
                           Nombre = p.Nombre,
                           Presentacion = p.Presentacion,
                           Descripcion = p.Descripcion,

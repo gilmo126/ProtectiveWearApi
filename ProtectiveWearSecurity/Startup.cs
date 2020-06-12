@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using ProtectiveWearSecurity.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -15,7 +14,8 @@ using System;
 using System.IO;
 using ProtectiveWearSecurity.Services;
 using ProtectiveWearSecurity.Filters;
-
+using ProtectiveWearSecurity.Models;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace ProtectiveWearSecurity
 {
@@ -29,10 +29,12 @@ namespace ProtectiveWearSecurity
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public virtual void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ProtectiveWearApiDbContext>(options =>
             options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+
+            
 
             services.AddSingleton<ProductService>();
 
@@ -57,10 +59,27 @@ namespace ProtectiveWearSecurity
                     ValidateIssuerSigningKey = true,
                     ValidIssuer = Configuration["Token:Issuer"],
                     ValidAudience = Configuration["Token:Audience"],
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes
-                                                       (Configuration["Token:Key"]))
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Token:Key"]))
                 };
             });
+
+
+           
+
+            // El tiempo de espera predeterminado de inactividad es de 14 días. El siguiente código establece el tiempo de espera de inactividad en 5 días:
+            services.ConfigureApplicationCookie(o => {
+                o.ExpireTimeSpan = TimeSpan.FromDays(5);
+                o.SlidingExpiration = true;
+            });
+
+            // El siguiente código cambia el tiempo de espera de todos los tokens de protección de datos a 3 horas
+            services.Configure<DataProtectionTokenProviderOptions>(o =>
+            o.TokenLifespan = TimeSpan.FromHours(3));
+
+            // configure section email sender
+            services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));
+            services.AddTransient<IEmailSender, EmailSender>();
+            
 
             services.AddControllers();
             services.AddCors();
@@ -119,6 +138,8 @@ namespace ProtectiveWearSecurity
             {
                 options.Filters.Add(item: new HttpExceptionFilter());
             });
+
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

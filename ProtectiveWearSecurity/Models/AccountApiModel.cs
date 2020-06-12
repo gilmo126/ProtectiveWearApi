@@ -18,6 +18,10 @@ namespace ProtectiveWearSecurity.Models
         /// Emal del usuario.
         /// </summary>
         public string Email { get; set; }
+        /// <summary>
+        /// Identificaición unica del usuario
+        /// </summary>
+        public string Id { get; set; }
 
     }
 }

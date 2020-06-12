@@ -4,6 +4,9 @@ using System.Net;
 
 namespace ProtectiveWearSecurity.Services
 {
+    /// <summary>
+    /// Clase encargada de realizar eventos o tomarlos.
+    /// </summary>
     public static class ManageEvents
     {
         /// <summary>
@@ -14,7 +17,7 @@ namespace ProtectiveWearSecurity.Services
         {
             if (model == null)
             {
-                throw new HttpException(new List<string> { "Producto no encontrado" }, HttpStatusCode.NotFound);
+                throw new HttpException(new List<string> { "Error al prcesar petición" }, HttpStatusCode.NotFound);
             }
         }
     }
