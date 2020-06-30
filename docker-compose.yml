@@ -1,22 +1,65 @@
-version: '3.1'
+version: '3.4'
+
 services:
-  mongo:
-    container_name: my-mongodb
-    image: mongo
-    restart: always
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
-    ports:
-      - 27017:27017
-  mongo-express:
-    container_name: my-mongodb-express
-    image: mongo-express
-    restart: always
-    ports:
-      - 8081:8081
-    environment:
-      ME_CONFIG_MONGODB_ADMINUSERNAME: root
-      ME_CONFIG_MONGODB_ADMINPASSWORD: example
+  protectivewearproductsapi:
+    image: protectivewearproductsapi:latest
     depends_on:
-      - mongo
+      - "mongo"
+    build:
+      context: .
+      dockerfile: ProtectiveWearProductsApi/Dockerfile
+    ports:
+      - "8080:80"
+      - "44365:443"
+    environment:
+       - ASPNETCORE_ENVIRONMENT=Development
+       - ASPNETCORE_URLS=https://+:443;http://+:80
+       - ASPNETCORE_HTTPS_PORT=44364
+       - ASPNETCORE_Kestrel__Certificates__Default__Password=7713Gil
+       - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/ProtectiveWearSecurity.pfx
+       - ProductsDatabaseSettings__Host=mongo
+    volumes:
+      - ./ProtectiveWearProductsApi/https/ProtectiveWearSecurity.pfx:/https/ProtectiveWearSecurity.pfx:ro
+
+  mongo:
+    image: mongo:latest
+    ports:
+        - "27017:27017"
+    restart: always
+    volumes:
+        - ~/var/lib/mongo/data:/var/lib/mongo
+
+  protectivewearsecurity:
+    image: protectivewearsecurity:latest
+    depends_on:
+      - "dbpostgres"
+    build:
+      context: .
+      dockerfile: ProtectiveWearSecurity/Dockerfile
+    ports:
+      - "8000:80"
+      - "44364:443"
+    environment:
+       - ASPNETCORE_ENVIRONMENT=Development
+       - ASPNETCORE_URLS=https://+:443;http://+:80
+       - ASPNETCORE_HTTPS_PORT=44364
+       - ASPNETCORE_Kestrel__Certificates__Default__Password=7713Gil
+       - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/ProtectiveWearSecurity.pfx
+       - DB_CONNECTION_STRING=host=dbpostgres;port=5432;database=protectivewearapi;username=gilmo;password=7713Gil
+       - DB_CONNECTION_STRING_PRODUCTS=http://protectivewearproductsapi/
+    volumes:
+      - ./ProtectiveWearSecurity/https/ProtectiveWearSecurity.pfx:/https/ProtectiveWearSecurity.pfx:ro
+
+  dbpostgres:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    restart: always
+    volumes:
+      - ~/var/lib/postgresql/data:/var/lib/postgresql
+    environment:
+      POSTGRES_USER: "gilmo"
+      POSTGRES_PASSWORD: "7713Gil"
+      POSTGRES_DB: "protectivewearapi"
+
+

@@ -2,40 +2,33 @@ version: '3.4'
 
 
 services:
-  protectivewearsecurity:
-    image: protectivewearsecurity:latest
+  protectivewearproducts:
+    image: protectivewearproducts:latest
     depends_on:
-      - "dbpostgres"
+      - "mongo"
     build:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "8000:80"
-      - "44364:443"
+      - "8080:80"
     environment:
        - ASPNETCORE_ENVIRONMENT=Development
        - ASPNETCORE_URLS=https://+:443;http://+:80
        - ASPNETCORE_HTTPS_PORT=44364
        - ASPNETCORE_Kestrel__Certificates__Default__Password=7713Gil
        - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/ProtectiveWearSecurity.pfx
-       - DB_CONNECTION_STRING=host=dbpostgres;port=5432;database=protectivewearapi;username=gilmo;password=7713Gil
-       - DB_CONNECTION_STRING_PRODUCTS=http://protectivewearproductsapi_protectivewearproducts_1/
+       - ProductsDatabaseSettings__Host=mongo
     volumes:
       - ./https/ProtectiveWearSecurity.pfx:/https/ProtectiveWearSecurity.pfx:ro
       
 
-
-  dbpostgres:
-    image: postgres:latest
+  mongo:
+    image: mongo:latest
     ports:
-      - "5432:5432"
+      - "27017:27017"
     restart: always
     volumes:
-      - db_volume:/var/lib/postgresql/data
-    environment:
-      POSTGRES_USER: "gilmo"
-      POSTGRES_PASSWORD: "7713Gil"
-      POSTGRES_DB: "protectivewearapi"
+      - db_volume:/var/lib/mongo/data
 
 volumes:
   db_volume:

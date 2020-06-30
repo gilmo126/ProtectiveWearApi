@@ -24,21 +24,27 @@
             <summary>
             Proceso que consulta una lista de productos.
             </summary>
-            <returns>Retorna una lista de objetos de tipo producto</returns>
+            <response code="401">Unauthorized. Requested resource requires authentication.</response>              
+            <response code="200">OK. Solicitud exitosa.</response>        
+            <response code="404">NotFound. Requested resource does not exist on the server.</response> 
         </member>
         <member name="M:ProtectiveWearProductsApi.Controllers.ProductController.GetProduct(System.String)">
             <summary>
             Proceso para consultar el detalle de un producto.
             </summary>
             <param name="id">Identificación de un producto.</param>
-            <returns>Retorna la información de tallada de un producto.</returns>
+            <response code="401">Unauthorized. Requested resource requires authentication.</response>              
+            <response code="200">OK. Solicitud exitosa.</response>        
+            <response code="404">NotFound. Requested resource does not exist on the server.</response> 
         </member>
         <member name="M:ProtectiveWearProductsApi.Controllers.ProductController.Create(ProtectiveWearProductsApi.Models.Product)">
             <summary>
             Proceso de creación de un producto.
             </summary>
             <param name="model">Objeto de tipo producto.</param>
-            <returns>Retorna el nevo objeto creado con su id.</returns>
+            <response code="401">Unauthorized. Requested resource requires authentication.</response>              
+            <response code="201">Created. Se ha creado el objeto.</response>        
+            <response code="400">BadRequest. Request could not be understood by the server.</response> 
         </member>
         <member name="M:ProtectiveWearProductsApi.Controllers.ProductController.Update(System.String,ProtectiveWearProductsApi.Models.Product)">
             <summary>
@@ -46,14 +52,18 @@
             </summary>
             <param name="id">Identificación de un producto.</param>
             <param name="model">Objeto de tipo producto.</param>
-            <returns>Retorna un valor vacio con resultado ok.</returns>
+            <response code="401">Unauthorized. Requested resource requires authentication.</response>              
+            <response code="204">Created. No se devuelve el objeto solicitado.</response>        
+            <response code="400">BadRequest. Request could not be understood by the server.</response>        
         </member>
         <member name="M:ProtectiveWearProductsApi.Controllers.ProductController.Delete(System.String)">
             <summary>
             Proceso de eliminación de un producto.
             </summary>
             <param name="id">Identificación de un producto</param>
-            <returns>Retorna un valor vacio con resultado ok.</returns>
+            <response code="401">Unauthorized. Requested resource requires authentication.</response>              
+            <response code="204">OK. No se devuelve el objeto solicitado.</response>        
+            <response code="404">NotFound. Requested resource does not exist on the server.</response> 
         </member>
         <member name="T:ProtectiveWearProductsApi.Exceptions.HttpException">
             <summary>
@@ -145,6 +155,11 @@
             Propiedad que toma el precion del producto.
             </summary>
         </member>
+        <member name="P:ProtectiveWearProductsApi.Models.Product.FechaCreacion">
+            <summary>
+            Propiedad que toma la fecha creacion de producto.
+            </summary>
+        </member>
         <member name="P:ProtectiveWearProductsApi.Models.Product.ImageUrl">
             <summary>
             Propiedad que toma la ruta de la imagen asociada al producto.
@@ -178,6 +193,11 @@
         <member name="P:ProtectiveWearProductsApi.Models.ProductApi.Precio">
             <summary>
             Propiedad que toma el precion del producto.
+            </summary>
+        </member>
+        <member name="P:ProtectiveWearProductsApi.Models.ProductApi.FechaCreacion">
+            <summary>
+            Propiedad que toma la fecha creacion de producto.
             </summary>
         </member>
         <member name="T:ProtectiveWearProductsApi.Models.ProductsDatabaseSettings">

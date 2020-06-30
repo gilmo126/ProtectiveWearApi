@@ -31,10 +31,17 @@ namespace ProtectiveWearSecurity
         // This method gets called by the runtime. Use this method to add services to the container.
         public virtual void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ProtectiveWearApiDbContext>(options =>
-            options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+            // for testing debug local machine
+            //services.AddDbContext<ProtectiveWearApiDbContext>(options =>
+            //options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
 
-            
+            var connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION_STRING");
+
+            services.AddDbContext<ProtectiveWearApiDbContext>(options =>
+                options.UseNpgsql(
+                    connectionString
+                )
+            );
 
             services.AddSingleton<ProductService>();
 
@@ -79,7 +86,12 @@ namespace ProtectiveWearSecurity
             // configure section email sender
             services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));
             services.AddTransient<IEmailSender, EmailSender>();
-            
+
+            // redireccion a puerto https cuando se solicite.
+            //services.AddHttpsRedirection(options =>
+            //{
+            //    options.HttpsPort = 443;
+            //});
 
             services.AddControllers();
             services.AddCors();
@@ -132,6 +144,7 @@ namespace ProtectiveWearSecurity
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
+
             });
 
             services.AddMvc(options =>
@@ -148,6 +161,10 @@ namespace ProtectiveWearSecurity
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseHsts();
             }
             // Crea un middleware para exponer la documentación en el JSON.
             app.UseSwagger();
@@ -169,12 +186,13 @@ namespace ProtectiveWearSecurity
 
             app.UseAuthentication();
 
-            app.UseAuthorization();           
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
+
         }
     }
 }

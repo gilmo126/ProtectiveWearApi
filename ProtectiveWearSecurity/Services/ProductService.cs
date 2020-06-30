@@ -28,7 +28,7 @@ namespace ProtectiveWearSecurity.Services
         {
             client = new HttpClient();
             _configuration = configuration;
-            _HostProduct = _configuration.GetConnectionString("HostProducts");
+            _HostProduct = Environment.GetEnvironmentVariable("DB_CONNECTION_STRING_PRODUCTS");
         }
         /// <summary>
         ///Proceso de creación de un producto, asíncrono.

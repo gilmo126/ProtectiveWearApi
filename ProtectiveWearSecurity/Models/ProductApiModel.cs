@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace ProtectiveWearSecurity.Models
@@ -8,6 +9,11 @@ namespace ProtectiveWearSecurity.Models
     /// </summary>
     public class ProductApiModel
     {
+        /// <summary>
+        /// Identificador de Producto
+        /// </summary>
+        [JsonProperty("Id")]
+        public string Id { get; set; }
         /// <summary>
         /// Propiedad que toma el nombre del producto.
         /// </summary>
@@ -30,5 +36,13 @@ namespace ProtectiveWearSecurity.Models
         [Display(Name = "Precio($)")]
         [DisplayFormat(DataFormatString = "{0:#,0}")]
         public decimal Precio { get; set; }
+        /// <summary>
+        /// Propiedad que toma la fecha creacion de producto.
+        /// </summary>
+
+        [JsonProperty("FechaCreacion")]
+        [DataType(DataType.DateTime)]
+        public DateTimeOffset FechaCreacion { get; set; }
+
     }
 }

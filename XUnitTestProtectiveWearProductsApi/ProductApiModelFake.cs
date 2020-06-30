@@ -20,14 +20,16 @@ namespace XUnitTestProtectiveWearProductsApi
                             Nombre = "Orange Juice",
                             Descripcion ="Just for test Orange Juice",
                             Presentacion ="box x 12 units",
-                            Precio = 22222
+                            Precio = 22222,
+                            FechaCreacion = DateTimeOffset.Now
                },
                 new Product{
                             Id = Guid.NewGuid().ToString(),
                             Nombre = "Diary Milk",
                             Descripcion ="Just for test Diary Milk",
                             Presentacion ="box x 24 units",
-                            Precio = 234567
+                            Precio = 234567,
+                            FechaCreacion = DateTimeOffset.Now
                }
 
             };
@@ -66,7 +68,8 @@ namespace XUnitTestProtectiveWearProductsApi
                     Nombre = x.Nombre,
                     Descripcion = x.Descripcion,
                     Presentacion = x.Presentacion,
-                    Precio = x.Precio
+                    Precio = x.Precio,
+                    FechaCreacion = x.FechaCreacion
                 }
 
                 ).ToList();
@@ -83,7 +86,8 @@ namespace XUnitTestProtectiveWearProductsApi
                     Nombre = p.Nombre,
                     Descripcion = p.Descripcion,
                     Presentacion = p.Presentacion,
-                    Precio = p.Precio
+                    Precio = p.Precio,
+                    FechaCreacion = p.FechaCreacion
                 }
                 ).FirstOrDefault();
             return result;

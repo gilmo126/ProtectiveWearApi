@@ -6,11 +6,22 @@
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>.</DockerfileContext>
     <DockerComposeProjectPath>docker-compose.dcproj</DockerComposeProjectPath>
+	<GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile>C:\Users\guigi\source\repos\ProtectiveWearApi\ProtectiveWearSecurity\ProtectiveWearSecurity.xml</DocumentationFile>
+    <OutputPath></OutputPath>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="docker-compose.yml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ApplicationDefinition Include="docker-compose.yml" />
+  </ItemGroup>
+  
 
   <ItemGroup>
     <PackageReference Include="MailKit" Version="2.7.0" />
@@ -32,6 +43,9 @@
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="5.4.1" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
   </ItemGroup>
+  
+
+  <ProjectExtensions><VisualStudio><UserProperties properties_4launchsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
 
 
 </Project>

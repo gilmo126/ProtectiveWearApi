@@ -1,5 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Npgsql;
+using ProtectiveWearSecurity.Exceptions;
+using System.Collections.Generic;
+using System.Net;
 
 namespace ProtectiveWearSecurity.Models
 {
@@ -15,6 +19,20 @@ namespace ProtectiveWearSecurity.Models
         public ProtectiveWearApiDbContext(DbContextOptions<ProtectiveWearApiDbContext> options)
         : base(options)
         {
+            try
+            {
+
+                Database.Migrate();
+
+            }
+            catch (NpgsqlException ex)
+            {
+                var Error = new List<string> {
+                    ex.Message                    
+
+                };
+                throw new HttpException(Error, HttpStatusCode.BadRequest);
+            }
         }
 
         /// <summary>
@@ -29,7 +47,8 @@ namespace ProtectiveWearSecurity.Models
         /// <summary>
         /// Constructor vacio.
         /// </summary>
-        public ProtectiveWearApiDbContext() { 
+        public ProtectiveWearApiDbContext()
+        {
         }
     }
 }

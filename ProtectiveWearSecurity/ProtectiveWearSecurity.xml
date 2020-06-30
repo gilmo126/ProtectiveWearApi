@@ -23,25 +23,32 @@
             </summary>
             <param name="model">Objeto de tipo usuario con datos de identificación.</param>
             <returns>Retorna un token valido para autorización y los datos del usuario identificado.</returns>
+            <response code="200">OK. Solicitud exitosa.</response>        
+            <response code="404">NotFound. Requested resource does not exist on the server.</response> 
+            <response code="400">BadRequest. Request could not be understood by the server.</response> 
         </member>
         <member name="M:ProtectiveWearSecurity.Controllers.AccountController.Logout">
             <summary>
             Método encargado de cerrar la sesion.
             </summary>
             <returns>retorna una respuesa de salida</returns>
+            <response code="200">OK. Solicitud exitosa.</response>        
         </member>
         <member name="M:ProtectiveWearSecurity.Controllers.AccountController.Lockout">
             <summary>
             Método encargado de bloquear un usuario.
             </summary>
             <returns>Retorna un error Http 400 "User account locked out."</returns>
+            <response code="400">BadRequest. Request could not be understood by the server.</response> 
         </member>
         <member name="M:ProtectiveWearSecurity.Controllers.AccountController.ForgotPassword(ProtectiveWearSecurity.Models.ForgotPasswordModel)">
             <summary>
             Método encargado de recuperar un password de usuario olvidado a traves de un link enviado al cliente solicitante. 
             </summary>
             <param name="model">Parametro con la información del correo eléctronico del usuario.</param>
-            <returns>retorna una respuesta Http, 200 ("Password reset email sent.") o 400 ("No user with that email address found.")</returns>
+            <returns>retorna una respuesta Http, 200 ("Password reset email sent.") o 404 ("No user with that email address found.")</returns>
+            <response code="200">OK. Solicitud exitosa.</response>        
+            <response code="404">NotFound. Requested resource does not exist on the server.</response> 
         </member>
         <member name="M:ProtectiveWearSecurity.Controllers.AccountController.ResetPassword(System.String,System.String)">
             <summary>
@@ -49,7 +56,9 @@
             </summary>
             <param name="userId">Identificación del usuario</param>
             <param name="code">Código o token generado por Forgotpassword, por medio de un link enviado al correo del usuario.</param>
-            <returns>Retorna un código 200 (Modelo de identificación del usuario) o 400 ("Invalid confirmation code.")</returns>
+            <returns>Retorna un código 200 (Modelo de identificación del usuario) o 404 ("Invalid confirmation code.")</returns>
+            <response code="200">OK. Solicitud exitosa.</response>        
+            <response code="404">NotFound. Requested resource does not exist on the server.</response> 
         </member>
         <member name="M:ProtectiveWearSecurity.Controllers.AccountController.ResetPasswordConfirm(ProtectiveWearSecurity.Models.ResetPasswordModel)">
             <summary>
@@ -57,6 +66,8 @@
             </summary>
             <param name="model">Modelo que contiene la información retornada por ResetPassword, junto con los datos a cambiar.</param>
             <returns>retorna un codifo 200 ("Password reset successfully.") o 400 ("No user with that email address found.")</returns>
+            <response code="200">OK. Solicitud exitosa.</response>        
+            <response code="404">NotFound. Requested resource does not exist on the server.</response> 
         </member>
         <member name="M:ProtectiveWearSecurity.Controllers.AccountController.Register(ProtectiveWearSecurity.Models.RegisterApiResource)">
             <summary>
@@ -64,6 +75,9 @@
             </summary>
             <param name="model">Objeto de tipo usuario con lo datos para el registro.</param>
             <returns>Retorna los datos del usuario registrado.</returns>
+            <response code="200">OK. Solicitud exitosa.</response>  
+            <response code="201">Created. Se ha creado el objeto.</response> 
+            <response code="400">BadRequest. Request could not be understood by the server.</response> 
         </member>
         <member name="M:ProtectiveWearSecurity.Controllers.AccountController.ConfirmEmail(System.String,System.String)">
             <summary>
@@ -72,6 +86,8 @@
             <param name="userId">Identificación del usuario</param>
             <param name="code">Código o token generado por Register, por medio de un link enviado al correo del usuario.</param>
             <returns>Retorna un codigo http 200("Registration confirmed!") o 400("Something went wrong.")</returns>
+            <response code="200">OK. Solicitud exitosa.</response>        
+            <response code="400">BadRequest. Request could not be understood by the server.</response> 
         </member>
         <member name="M:ProtectiveWearSecurity.Controllers.AccountController.AddErrors(Microsoft.AspNetCore.Identity.IdentityResult)">
             <summary>
@@ -106,21 +122,27 @@
             <summary>
             Proceso que consulta una lista de productos.
             </summary>
-            <returns>Retorna una lista de objetos de tipo producto</returns>
+            <response code="401">Unauthorized. Requested resource requires authentication.</response>              
+            <response code="200">OK. Solicitud exitosa.</response>        
+            <response code="404">NotFound. Requested resource does not exist on the server.</response> 
         </member>
         <member name="M:ProtectiveWearSecurity.Controllers.ProductController.GetProduct(System.String)">
             <summary>
             Proceso para consultar el detalle de un producto.
             </summary>
             <param name="id">Identificación de un producto.</param>
-            <returns>Retorna la información de tallada de un producto.</returns>
+            <response code="401">Unauthorized. Requested resource requires authentication.</response>              
+            <response code="200">OK. Solicitud exitosa.</response>        
+            <response code="404">NotFound. Requested resource does not exist on the server.</response> 
         </member>
         <member name="M:ProtectiveWearSecurity.Controllers.ProductController.Create(ProtectiveWearSecurity.Models.Product)">
             <summary>
             Proceso de creación de un producto.
             </summary>
             <param name="model">Objeto de tipo producto.</param>
-            <returns>Retorna el nevo objeto creado con su id.</returns>
+            <response code="401">Unauthorized. Requested resource requires authentication.</response>              
+            <response code="201">Created. Se ha creado el objeto.</response>        
+            <response code="400">BadRequest. Request could not be understood by the server.</response> 
         </member>
         <member name="M:ProtectiveWearSecurity.Controllers.ProductController.Update(System.String,ProtectiveWearSecurity.Models.Product)">
             <summary>
@@ -128,14 +150,18 @@
             </summary>
             <param name="id">Identificación de un producto.</param>
             <param name="model">Objeto de tipo producto.</param>
-            <returns>Retorna un valor vacio con resultado ok.</returns>
+            <response code="401">Unauthorized. Requested resource requires authentication.</response>              
+            <response code="204">Created. No se devuelve el objeto solicitado.</response>        
+            <response code="400">BadRequest. Request could not be understood by the server.</response>        
         </member>
         <member name="M:ProtectiveWearSecurity.Controllers.ProductController.Delete(System.String)">
             <summary>
             Proceso de eliminación de un producto.
             </summary>
             <param name="id">Identificación de un producto</param>
-            <returns>Retorna un valor vacio con resultado ok.</returns>
+            <response code="401">Unauthorized. Requested resource requires authentication.</response>              
+            <response code="204">OK. No se devuelve el objeto solicitado.</response>        
+            <response code="404">NotFound. Requested resource does not exist on the server.</response> 
         </member>
         <member name="T:ProtectiveWearSecurity.Exceptions.HttpException">
             <summary>
@@ -266,6 +292,11 @@
             Propiedad que toma el precion del producto.
             </summary>
         </member>
+        <member name="P:ProtectiveWearSecurity.Models.Product.FechaCreacion">
+            <summary>
+            Propiedad que toma la fecha creacion de producto.
+            </summary>
+        </member>
         <member name="P:ProtectiveWearSecurity.Models.Product.ImageUrl">
             <summary>
             Propiedad que toma la ruta de la imagen asociada al producto.
@@ -274,6 +305,11 @@
         <member name="T:ProtectiveWearSecurity.Models.ProductApiModel">
             <summary>
             Clase para serializar los productos consultados.
+            </summary>
+        </member>
+        <member name="P:ProtectiveWearSecurity.Models.ProductApiModel.Id">
+            <summary>
+            Identificador de Producto
             </summary>
         </member>
         <member name="P:ProtectiveWearSecurity.Models.ProductApiModel.Nombre">
@@ -294,6 +330,11 @@
         <member name="P:ProtectiveWearSecurity.Models.ProductApiModel.Precio">
             <summary>
             Propiedad que toma el precion del producto.
+            </summary>
+        </member>
+        <member name="P:ProtectiveWearSecurity.Models.ProductApiModel.FechaCreacion">
+            <summary>
+            Propiedad que toma la fecha creacion de producto.
             </summary>
         </member>
         <member name="T:ProtectiveWearSecurity.Models.ProtectiveWearApiDbContext">

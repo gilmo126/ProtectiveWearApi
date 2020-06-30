@@ -20,19 +20,75 @@ namespace ProtectiveWearProductsApi.Filters
         /// <param name="context"></param>
         public override void OnException(ExceptionContext context) 
         {
-            var error = new HttpException(
-                new List<string> { "Ayyyy! Internal Server Error"},
-                HttpStatusCode.InternalServerError);
 
-            context.HttpContext.Response.StatusCode = 500;
+            int codeError = 0;
+            HttpStatusCode statusCode = (HttpStatusCode)500;
+
+            var error = new HttpException();
+
+            context.HttpContext.Response.StatusCode = (int)statusCode;
 
             if (context.Exception is HttpException)
             {
                 error = context.Exception as HttpException;
-                context.HttpContext.Response.StatusCode = (int)error.ErrorCode;
+                codeError = (int)error.ErrorCode;
+                #region Region Code errors Http
+                switch (codeError)
+                {
+                    case 500:
+                        statusCode = (HttpStatusCode)codeError;
+                        error.Messages.Add("A generic error has occurred on the server.");
+                        break;
+                    case 501:
+                        statusCode = (HttpStatusCode)codeError;
+                        error.Messages.Add("Server does not support the requested function.");
+                        break;
+                    case 502:
+                        statusCode = (HttpStatusCode)codeError;
+                        error.Messages.Add("Proxy server received a bad response from another proxy or the origin server.");
+                        break;
+                    case 503:
+                        statusCode = (HttpStatusCode)codeError;
+                        error.Messages.Add("Server is temporarily unavailable, usually due to high load or maintenance.");
+                        break;
+                    case 504:
+                        statusCode = (HttpStatusCode)codeError;
+                        error.Messages.Add("Proxy server timed out while waiting for a response from another proxy or the origin server.");
+                        break;
+                    case 400:
+                        statusCode = (HttpStatusCode)codeError;
+                        error.Messages.Add("Request could not be understood by the server.");
+                        break;
+                    case 401:
+                        statusCode = (HttpStatusCode)codeError;
+                        error.Messages.Add("Requested resource requires authentication.");
+                        break;
+                    case 403:
+                        statusCode = (HttpStatusCode)codeError;
+                        error.Messages.Add("Server refuses to fulfill the request.");
+                        break;
+                    case 404:
+                        statusCode = (HttpStatusCode)codeError;
+                        error.Messages.Add("Requested resource does not exist on the server.");
+                        break;
+                    default:
+                        statusCode = (HttpStatusCode)codeError;
+                        error.Messages.Add("¡Uuups! something is wrong");
+                        error.Messages.Add(context.Exception.Message);
+                        break;
+                }
+                #endregion
 
+                context.HttpContext.Response.StatusCode = (int)statusCode;
+            }
+            else if (!string.IsNullOrEmpty(context.Exception.ToString()))
+            {
+                statusCode = (HttpStatusCode)400;
+                error.Messages.Add(context.Exception.Message);
+                context.HttpContext.Response.StatusCode = (int)statusCode;
             }
 
+            error = new HttpException(error.Messages, statusCode);
             context.Result = new JsonResult(new { error = error.Messages, code = error.ErrorCode});
             base.OnException(context);          
         

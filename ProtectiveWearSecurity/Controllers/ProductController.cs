@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -33,7 +32,9 @@ namespace ProtectiveWearSecurity.Controllers
         /// <summary>
         /// Proceso que consulta una lista de productos.
         /// </summary>
-        /// <returns>Retorna una lista de objetos de tipo producto</returns>
+        /// <response code="401">Unauthorized. Requested resource requires authentication.</response>              
+        /// <response code="200">OK. Solicitud exitosa.</response>        
+        /// <response code="404">NotFound. Requested resource does not exist on the server.</response> 
         [HttpGet]
         public async Task<ActionResult<List<ProductApiModel>>> Products()
         {
@@ -43,7 +44,9 @@ namespace ProtectiveWearSecurity.Controllers
         /// Proceso para consultar el detalle de un producto.
         /// </summary>
         /// <param name="id">Identificación de un producto.</param>
-        /// <returns>Retorna la información de tallada de un producto.</returns>
+        /// <response code="401">Unauthorized. Requested resource requires authentication.</response>              
+        /// <response code="200">OK. Solicitud exitosa.</response>        
+        /// <response code="404">NotFound. Requested resource does not exist on the server.</response> 
         [HttpGet("{id}", Name = "GetProductById")]
         public async Task<ActionResult<ProductApiModel>> GetProduct(string id)
         {
@@ -53,7 +56,9 @@ namespace ProtectiveWearSecurity.Controllers
         /// Proceso de creación de un producto.
         /// </summary>
         /// <param name="model">Objeto de tipo producto.</param>
-        /// <returns>Retorna el nevo objeto creado con su id.</returns>
+        /// <response code="401">Unauthorized. Requested resource requires authentication.</response>              
+        /// <response code="201">Created. Se ha creado el objeto.</response>        
+        /// <response code="400">BadRequest. Request could not be understood by the server.</response> 
         [HttpPost]
         public async Task<ActionResult<ProductApiModel>> Create([FromBody]Product model)
         {
@@ -64,7 +69,9 @@ namespace ProtectiveWearSecurity.Controllers
         /// </summary>
         /// <param name="id">Identificación de un producto.</param>
         /// <param name="model">Objeto de tipo producto.</param>
-        /// <returns>Retorna un valor vacio con resultado ok.</returns>
+        /// <response code="401">Unauthorized. Requested resource requires authentication.</response>              
+        /// <response code="204">Created. No se devuelve el objeto solicitado.</response>        
+        /// <response code="400">BadRequest. Request could not be understood by the server.</response>        
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(string id, [FromBody] Product model)
         {
@@ -75,7 +82,9 @@ namespace ProtectiveWearSecurity.Controllers
         /// Proceso de eliminación de un producto.
         /// </summary>
         /// <param name="id">Identificación de un producto</param>
-        /// <returns>Retorna un valor vacio con resultado ok.</returns>
+        /// <response code="401">Unauthorized. Requested resource requires authentication.</response>              
+        /// <response code="204">OK. No se devuelve el objeto solicitado.</response>        
+        /// <response code="404">NotFound. Requested resource does not exist on the server.</response> 
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(string id)
         {

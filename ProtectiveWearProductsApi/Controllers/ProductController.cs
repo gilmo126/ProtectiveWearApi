@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ProtectiveWearProductsApi.Interfaces;
 using ProtectiveWearProductsApi.Models;
-using ProtectiveWearProductsApi.Services;
 
 namespace ProtectiveWearProductsApi.Controllers
 {
@@ -18,7 +16,6 @@ namespace ProtectiveWearProductsApi.Controllers
         /// <summary>
         /// Propiedad que permite aplicar una injeccion en el constructor para invocar los metodos del servicio.
         /// </summary>
-        //private readonly ProductService _productService;
 
         private readonly IProductService _productService;
 
@@ -34,7 +31,9 @@ namespace ProtectiveWearProductsApi.Controllers
         /// <summary>
         /// Proceso que consulta una lista de productos.
         /// </summary>
-        /// <returns>Retorna una lista de objetos de tipo producto</returns>
+        /// <response code="401">Unauthorized. Requested resource requires authentication.</response>              
+        /// <response code="200">OK. Solicitud exitosa.</response>        
+        /// <response code="404">NotFound. Requested resource does not exist on the server.</response> 
         [HttpGet]
         public async Task<ActionResult<List<ProductApi>>> Products()
         {
@@ -45,7 +44,9 @@ namespace ProtectiveWearProductsApi.Controllers
         /// Proceso para consultar el detalle de un producto.
         /// </summary>
         /// <param name="id">Identificación de un producto.</param>
-        /// <returns>Retorna la información de tallada de un producto.</returns>
+        /// <response code="401">Unauthorized. Requested resource requires authentication.</response>              
+        /// <response code="200">OK. Solicitud exitosa.</response>        
+        /// <response code="404">NotFound. Requested resource does not exist on the server.</response> 
         [HttpGet("{id}", Name = "GetProductById")]
         public async Task<ActionResult<ProductApi>> GetProduct(string id)
         {
@@ -57,7 +58,9 @@ namespace ProtectiveWearProductsApi.Controllers
         /// Proceso de creación de un producto.
         /// </summary>
         /// <param name="model">Objeto de tipo producto.</param>
-        /// <returns>Retorna el nevo objeto creado con su id.</returns>
+        /// <response code="401">Unauthorized. Requested resource requires authentication.</response>              
+        /// <response code="201">Created. Se ha creado el objeto.</response>        
+        /// <response code="400">BadRequest. Request could not be understood by the server.</response> 
         [HttpPost]
         public async Task<ActionResult<Product>> Create([FromBody]Product model)
         {
@@ -75,7 +78,9 @@ namespace ProtectiveWearProductsApi.Controllers
         /// </summary>
         /// <param name="id">Identificación de un producto.</param>
         /// <param name="model">Objeto de tipo producto.</param>
-        /// <returns>Retorna un valor vacio con resultado ok.</returns>
+        /// <response code="401">Unauthorized. Requested resource requires authentication.</response>              
+        /// <response code="204">Created. No se devuelve el objeto solicitado.</response>        
+        /// <response code="400">BadRequest. Request could not be understood by the server.</response>        
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(string id, [FromBody] Product model)
         {
@@ -91,7 +96,9 @@ namespace ProtectiveWearProductsApi.Controllers
         /// Proceso de eliminación de un producto.
         /// </summary>
         /// <param name="id">Identificación de un producto</param>
-        /// <returns>Retorna un valor vacio con resultado ok.</returns>
+        /// <response code="401">Unauthorized. Requested resource requires authentication.</response>              
+        /// <response code="204">OK. No se devuelve el objeto solicitado.</response>        
+        /// <response code="404">NotFound. Requested resource does not exist on the server.</response> 
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(string id)
         {

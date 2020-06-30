@@ -61,6 +61,9 @@ namespace ProtectiveWearSecurity.Controllers
         /// </summary>
         /// <param name="model">Objeto de tipo usuario con datos de identificación.</param>
         /// <returns>Retorna un token valido para autorización y los datos del usuario identificado.</returns>
+        /// <response code="200">OK. Solicitud exitosa.</response>        
+        /// <response code="404">NotFound. Requested resource does not exist on the server.</response> 
+        /// <response code="400">BadRequest. Request could not be understood by the server.</response> 
         [HttpPost]
         [AllowAnonymous]
         [Route("login")]
@@ -82,8 +85,8 @@ namespace ProtectiveWearSecurity.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("400", "Invalid login attempt.");
-                    return BadRequest(new
+                    ModelState.AddModelError("404", "Invalid login attempt.");
+                    return NotFound(new
                     {
                         Error = new { Message = "Invalid login attempt." },
                         result
@@ -98,6 +101,8 @@ namespace ProtectiveWearSecurity.Controllers
         /// Método encargado de cerrar la sesion.
         /// </summary>
         /// <returns>retorna una respuesa de salida</returns>
+        /// <response code="200">OK. Solicitud exitosa.</response>        
+
         [HttpPost]
         [AllowAnonymous]
         [Route("Logout")]
@@ -111,6 +116,8 @@ namespace ProtectiveWearSecurity.Controllers
         /// Método encargado de bloquear un usuario.
         /// </summary>
         /// <returns>Retorna un error Http 400 "User account locked out."</returns>
+        /// <response code="400">BadRequest. Request could not be understood by the server.</response> 
+
         [HttpGet]
         [AllowAnonymous]
         [Route("Lockout")]
@@ -122,7 +129,9 @@ namespace ProtectiveWearSecurity.Controllers
         /// Método encargado de recuperar un password de usuario olvidado a traves de un link enviado al cliente solicitante. 
         /// </summary>
         /// <param name="model">Parametro con la información del correo eléctronico del usuario.</param>
-        /// <returns>retorna una respuesta Http, 200 ("Password reset email sent.") o 400 ("No user with that email address found.")</returns>
+        /// <returns>retorna una respuesta Http, 200 ("Password reset email sent.") o 404 ("No user with that email address found.")</returns>
+        /// <response code="200">OK. Solicitud exitosa.</response>        
+        /// <response code="404">NotFound. Requested resource does not exist on the server.</response> 
         [HttpPost]
         [AllowAnonymous]
         [Route("ForgotPassword")]
@@ -140,14 +149,17 @@ namespace ProtectiveWearSecurity.Controllers
             }
 
 
-            return BadRequest(new { Error = new { Message = "No user with that email address found." } });
+            return NotFound(new { Error = new { Message = "No user with that email address found." } });
         }
         /// <summary>
         /// Método de tomar un Id Usuario y un token para iniciar el proceso de cambio de password tras ser enviado por Forgotpassword.
         /// </summary>
         /// <param name="userId">Identificación del usuario</param>
         /// <param name="code">Código o token generado por Forgotpassword, por medio de un link enviado al correo del usuario.</param>
-        /// <returns>Retorna un código 200 (Modelo de identificación del usuario) o 400 ("Invalid confirmation code.")</returns>
+        /// <returns>Retorna un código 200 (Modelo de identificación del usuario) o 404 ("Invalid confirmation code.")</returns>
+        /// <response code="200">OK. Solicitud exitosa.</response>        
+        /// <response code="404">NotFound. Requested resource does not exist on the server.</response> 
+
         [HttpGet]
         [AllowAnonymous]
         [Route("ResetPassword")]
@@ -162,13 +174,15 @@ namespace ProtectiveWearSecurity.Controllers
                 return Ok(viewModel);
             }
 
-            return BadRequest(new { Error = new { Message = "Invalid confirmation code." } });
+            return NotFound(new { Error = new { Message = "Invalid confirmation code." } });
         }
         /// <summary>
         /// Método encargado de realizar el cambio del password luego de ser verificado por resetPassword, al generar un token y IdUsuario.
         /// </summary>
         /// <param name="model">Modelo que contiene la información retornada por ResetPassword, junto con los datos a cambiar.</param>
         /// <returns>retorna un codifo 200 ("Password reset successfully.") o 400 ("No user with that email address found.")</returns>
+        /// <response code="200">OK. Solicitud exitosa.</response>        
+        /// <response code="404">NotFound. Requested resource does not exist on the server.</response> 
         [HttpGet]
         [AllowAnonymous]
         [Route("ResetPasswordConfirm")]
@@ -187,7 +201,7 @@ namespace ProtectiveWearSecurity.Controllers
                 );
             }
 
-            return BadRequest(new
+            return NotFound(new
             {
                 Error = new { Message = "No user with that email address found." }
             });
@@ -197,6 +211,9 @@ namespace ProtectiveWearSecurity.Controllers
         /// </summary>
         /// <param name="model">Objeto de tipo usuario con lo datos para el registro.</param>
         /// <returns>Retorna los datos del usuario registrado.</returns>
+        /// <response code="200">OK. Solicitud exitosa.</response>  
+        /// <response code="201">Created. Se ha creado el objeto.</response> 
+        /// <response code="400">BadRequest. Request could not be understood by the server.</response> 
         [HttpPost]
         [AllowAnonymous]
         [Route("Register")]
@@ -247,6 +264,8 @@ namespace ProtectiveWearSecurity.Controllers
         /// <param name="userId">Identificación del usuario</param>
         /// <param name="code">Código o token generado por Register, por medio de un link enviado al correo del usuario.</param>
         /// <returns>Retorna un codigo http 200("Registration confirmed!") o 400("Something went wrong.")</returns>
+        /// <response code="200">OK. Solicitud exitosa.</response>        
+        /// <response code="400">BadRequest. Request could not be understood by the server.</response> 
         [HttpGet]
         [AllowAnonymous]
         [Route("ConfirmEmail")]

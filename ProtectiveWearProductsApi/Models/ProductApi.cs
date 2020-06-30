@@ -1,5 +1,6 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 using Newtonsoft.Json;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace ProtectiveWearProductsApi.Models
@@ -41,5 +42,13 @@ namespace ProtectiveWearProductsApi.Models
         [Display(Name = "Precio($)")]
         [DisplayFormat(DataFormatString = "{0:#,0}")]
         public decimal Precio { get; set; }
+        /// <summary>
+        /// Propiedad que toma la fecha creacion de producto.
+        /// </summary>
+        [BsonElement("FechaCreacion")]
+        [JsonProperty("FechaCreacion")]
+        [DataType(DataType.DateTime)]
+        public DateTimeOffset FechaCreacion { get; set; }
+
     }
 }

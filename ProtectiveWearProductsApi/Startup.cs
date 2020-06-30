@@ -39,6 +39,12 @@ namespace ProtectiveWearProductsApi
             services.AddControllers()
                 .AddNewtonsoftJson();
 
+            //// redireccion a puerto https cuando se solicite.
+            //services.AddHttpsRedirection(options =>
+            //{
+            //    options.HttpsPort = 443;
+            //});
+
             services.AddSwaggerGen(c => {
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
@@ -71,7 +77,7 @@ namespace ProtectiveWearProductsApi
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
 

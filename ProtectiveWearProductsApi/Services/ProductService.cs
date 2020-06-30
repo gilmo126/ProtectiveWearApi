@@ -55,7 +55,8 @@ namespace ProtectiveWearProductsApi.Services
                       Nombre = x.Nombre,
                       Presentacion = x.Presentacion,
                       Descripcion = x.Descripcion,
-                      Precio = x.Precio
+                      Precio = x.Precio,
+                      FechaCreacion = x.FechaCreacion
 
                   })
                   .ToList();
@@ -75,7 +76,8 @@ namespace ProtectiveWearProductsApi.Services
                       Nombre = x.Nombre,
                       Presentacion = x.Presentacion,
                       Descripcion = x.Descripcion,
-                      Precio = x.Precio
+                      Precio = x.Precio,
+                      FechaCreacion = x.FechaCreacion
 
                   })
                   .ToListAsync();
@@ -97,7 +99,8 @@ namespace ProtectiveWearProductsApi.Services
                             Nombre = p.Nombre,
                             Presentacion = p.Presentacion,
                             Descripcion = p.Descripcion,
-                            Precio = p.Precio
+                            Precio = p.Precio,
+                            FechaCreacion = p.FechaCreacion
                         })
                        .FirstOrDefaultAsync();
 
@@ -122,7 +125,8 @@ namespace ProtectiveWearProductsApi.Services
                           Nombre = p.Nombre,
                           Presentacion = p.Presentacion,
                           Descripcion = p.Descripcion,
-                          Precio = p.Precio
+                          Precio = p.Precio,
+                          FechaCreacion = p.FechaCreacion
                       })
                       .FirstOrDefault();
 
