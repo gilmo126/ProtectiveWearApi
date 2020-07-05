@@ -5,11 +5,11 @@ WORKDIR /app
 
 
 # Copy csproj and restore as distinct layers
-COPY ProtectiveWearSecurity/*.csproj ./
+COPY *.csproj ./
 RUN dotnet restore
 
 # Copy everything else and build
-COPY ProtectiveWearSecurity/. ./
+COPY . ./
 RUN dotnet publish -c Release -o out
 
 # Build runtime image
