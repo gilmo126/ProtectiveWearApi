@@ -22,7 +22,7 @@ namespace ProtectiveWearSecurity.Models
             try
             {
 
-                Database.Migrate();
+                Database.EnsureCreated();
 
             }
             catch (NpgsqlException ex)
