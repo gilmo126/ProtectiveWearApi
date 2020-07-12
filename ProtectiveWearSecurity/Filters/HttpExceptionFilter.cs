@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Filters;
 using Npgsql;
 using ProtectiveWearSecurity.Exceptions;
+using ProtectiveWearSecurity.Models;
 using System.Collections.Generic;
 using System.Net;
 
@@ -22,6 +23,7 @@ namespace ProtectiveWearSecurity.Filters
         public override void OnException(ExceptionContext context)
         {
             int codeError = 0;
+            ErrorMessage errorMessage = null;
             HttpStatusCode statusCode = (HttpStatusCode)500;
           
 
@@ -73,6 +75,10 @@ namespace ProtectiveWearSecurity.Filters
                         statusCode = (HttpStatusCode)codeError;
                         error.Messages.Add("Requested resource does not exist on the server.");                        
                         break;
+                    case 405:
+                        statusCode = (HttpStatusCode)codeError;
+                        error.Messages.Add("that the request method (POST or GET) is not allowed on the requested resource.");
+                        break;
                     default:
                         statusCode = (HttpStatusCode)codeError;                       
                         error.Messages.Add("¡Uuups! something is wrong");
@@ -92,7 +98,11 @@ namespace ProtectiveWearSecurity.Filters
             }
 
             error = new HttpException(error.Messages, statusCode);
-            context.Result = new JsonResult(new { error = error.Messages, code = error.ErrorCode });
+            errorMessage = new ErrorMessage();
+            errorMessage.code = error.ErrorCode;
+            errorMessage.messages = error.Messages;
+
+            context.Result = new JsonResult(errorMessage);
             base.OnException(context);
 
         }

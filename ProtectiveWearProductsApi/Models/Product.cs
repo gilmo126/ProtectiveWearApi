@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 namespace ProtectiveWearProductsApi.Models
 {
     /// <summary>
-    /// 
+    /// Entidad de producto 
     /// </summary>
     public class Product
     {

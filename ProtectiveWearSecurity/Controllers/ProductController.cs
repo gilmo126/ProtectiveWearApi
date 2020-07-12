@@ -48,7 +48,7 @@ namespace ProtectiveWearSecurity.Controllers
         /// <response code="200">OK. Solicitud exitosa.</response>        
         /// <response code="404">NotFound. Requested resource does not exist on the server.</response> 
         [HttpGet("{id}", Name = "GetProductById")]
-        public async Task<ActionResult<ProductApiModel>> GetProduct(string id)
+        public async Task<ActionResult<Product>> GetProduct(string id)
         {
             return await _productService.GetProductByIdAsync(id);
         }
@@ -60,7 +60,7 @@ namespace ProtectiveWearSecurity.Controllers
         /// <response code="201">Created. Se ha creado el objeto.</response>        
         /// <response code="400">BadRequest. Request could not be understood by the server.</response> 
         [HttpPost]
-        public async Task<ActionResult<ProductApiModel>> Create([FromBody]Product model)
+        public async Task<ActionResult<ProductApiModel>> Create([FromBody]ProductCreated model)
         {
             return await _productService.CreateProductAsync(model);
         }
@@ -75,7 +75,7 @@ namespace ProtectiveWearSecurity.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(string id, [FromBody] Product model)
         {
-            await _productService.UpdateProductAsync(model);
+            await _productService.UpdateProductAsync(id, model);
             return NoContent();
         }
         /// <summary>

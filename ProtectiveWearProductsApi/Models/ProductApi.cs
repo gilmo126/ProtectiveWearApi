@@ -8,8 +8,9 @@ namespace ProtectiveWearProductsApi.Models
     /// <summary>
     /// 
     /// </summary>
-    public class ProductApi
+    public class ProductApi 
     {
+
         /// <summary>
         /// Identificador de Producto
         /// </summary>
@@ -42,13 +43,6 @@ namespace ProtectiveWearProductsApi.Models
         [Display(Name = "Precio($)")]
         [DisplayFormat(DataFormatString = "{0:#,0}")]
         public decimal Precio { get; set; }
-        /// <summary>
-        /// Propiedad que toma la fecha creacion de producto.
-        /// </summary>
-        [BsonElement("FechaCreacion")]
-        [JsonProperty("FechaCreacion")]
-        [DataType(DataType.DateTime)]
-        public DateTimeOffset FechaCreacion { get; set; }
 
     }
 }

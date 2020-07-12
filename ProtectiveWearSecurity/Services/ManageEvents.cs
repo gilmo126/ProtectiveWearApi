@@ -17,7 +17,7 @@ namespace ProtectiveWearSecurity.Services
         {
             if (model == null)
             {
-                throw new HttpException(new List<string> { "Error al prcesar petición" }, HttpStatusCode.NotFound);
+                throw new HttpException(new List<string> { "Error al procesar petición" }, HttpStatusCode.NotFound);
             }
         }
     }

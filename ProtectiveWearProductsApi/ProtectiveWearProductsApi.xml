@@ -37,7 +37,7 @@
             <response code="200">OK. Solicitud exitosa.</response>        
             <response code="404">NotFound. Requested resource does not exist on the server.</response> 
         </member>
-        <member name="M:ProtectiveWearProductsApi.Controllers.ProductController.Create(ProtectiveWearProductsApi.Models.Product)">
+        <member name="M:ProtectiveWearProductsApi.Controllers.ProductController.Create(ProtectiveWearProductsApi.Models.ProductCreated)">
             <summary>
             Proceso de creación de un producto.
             </summary>
@@ -127,7 +127,7 @@
         </member>
         <member name="T:ProtectiveWearProductsApi.Models.Product">
             <summary>
-            
+            Entidad de producto 
             </summary>
         </member>
         <member name="P:ProtectiveWearProductsApi.Models.Product.Id">
@@ -195,9 +195,39 @@
             Propiedad que toma el precion del producto.
             </summary>
         </member>
-        <member name="P:ProtectiveWearProductsApi.Models.ProductApi.FechaCreacion">
+        <member name="T:ProtectiveWearProductsApi.Models.ProductCreated">
+            <summary>
+            Entidad para creación de producto
+            </summary>
+        </member>
+        <member name="P:ProtectiveWearProductsApi.Models.ProductCreated.Nombre">
+            <summary>
+            Propiedad que toma el nombre del producto.
+            </summary>
+        </member>
+        <member name="P:ProtectiveWearProductsApi.Models.ProductCreated.Presentacion">
+            <summary>
+            Propiedad que toma la presentación del producto.
+            </summary>        
+        </member>
+        <member name="P:ProtectiveWearProductsApi.Models.ProductCreated.Descripcion">
+            <summary>
+            Propiedad que toma la descripción del producto.
+            </summary>
+        </member>
+        <member name="P:ProtectiveWearProductsApi.Models.ProductCreated.Precio">
+            <summary>
+            Propiedad que toma el precion del producto.
+            </summary>
+        </member>
+        <member name="P:ProtectiveWearProductsApi.Models.ProductCreated.FechaCreacion">
             <summary>
             Propiedad que toma la fecha creacion de producto.
+            </summary>
+        </member>
+        <member name="P:ProtectiveWearProductsApi.Models.ProductCreated.ImageUrl">
+            <summary>
+            Propiedad que toma la ruta de la imagen asociada al producto.
             </summary>
         </member>
         <member name="T:ProtectiveWearProductsApi.Models.ProductsDatabaseSettings">
@@ -219,6 +249,21 @@
         <member name="P:ProtectiveWearProductsApi.Models.ProductsDatabaseSettings.DatabaseName">
             <summary>
             Captura el nombre de la base de datos a almacenar.
+            </summary>
+        </member>
+        <member name="P:ProtectiveWearProductsApi.Models.ResponseProduct.Id">
+            <summary>
+            Propiedad que toma el id del producto asigando por la base de datos.
+            </summary>
+        </member>
+        <member name="P:ProtectiveWearProductsApi.Models.ResponseProduct.FechaCreacion">
+            <summary>
+            Propiedad que toma la fecha creacion de producto.
+            </summary>
+        </member>
+        <member name="P:ProtectiveWearProductsApi.Models.ResponseProduct.ErrorMessage">
+            <summary>
+            En caso de error se devuelve la excepcion
             </summary>
         </member>
         <member name="T:ProtectiveWearProductsApi.Services.ErrorHandler">
@@ -265,14 +310,14 @@
             Proceso para consultar el detalle de un producto, de forma asíncrono.
             </summary>
             <param name="id">Identificación de un producto</param>
-            <returns>Retorna la información de tallada de un producto</returns>
+            <returns>Retorna la información detallada de un producto</returns>
         </member>
         <member name="M:ProtectiveWearProductsApi.Services.ProductService.Get(System.String)">
             <summary>
             Proceso para consultar el detalle de un producto, de forma síncrono.
             </summary>
             <param name="id">Identificación de un producto</param>
-            <returns>Retorna la información de tallada de un producto</returns>
+            <returns>Retorna la información detallada de un producto</returns>
         </member>
         <member name="M:ProtectiveWearProductsApi.Services.ProductService.CreateAsync(ProtectiveWearProductsApi.Models.Product)">
             <summary>

@@ -86,7 +86,7 @@ namespace XUnitTestProtectiveWearProductsApi
 
             // arrange
             var id = Guid.NewGuid().ToString();
-            var productApiModel = new ProductApi
+            var productApiModel = new Product
             {
                 Id = id,
                 Nombre = "cadena dos",
@@ -111,8 +111,8 @@ namespace XUnitTestProtectiveWearProductsApi
             // Assert
             //Assert.IsType<OkObjectResult>(data.Result);
             //Assert.Equal(id, model.Id);
-            Assert.IsType<ProductApi>(result.Value);
-            Assert.Equal(id, (result.Value as ProductApi).Id);
+            Assert.IsType<Product>(result.Value);
+            Assert.Equal(id, (result.Value as Product).Id);
         }
         /// <summary>
         /// Test for especific product Id diferent identification.

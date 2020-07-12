@@ -16,7 +16,7 @@ namespace ProtectiveWearProductsApi.Services
     {
         private readonly IMongoDatabase _productsDB;
 
-        
+
 
         /// <summary>
         /// Constructor de la clase
@@ -55,8 +55,7 @@ namespace ProtectiveWearProductsApi.Services
                       Nombre = x.Nombre,
                       Presentacion = x.Presentacion,
                       Descripcion = x.Descripcion,
-                      Precio = x.Precio,
-                      FechaCreacion = x.FechaCreacion
+                      Precio = x.Precio
 
                   })
                   .ToList();
@@ -76,8 +75,7 @@ namespace ProtectiveWearProductsApi.Services
                       Nombre = x.Nombre,
                       Presentacion = x.Presentacion,
                       Descripcion = x.Descripcion,
-                      Precio = x.Precio,
-                      FechaCreacion = x.FechaCreacion
+                      Precio = x.Precio
 
                   })
                   .ToListAsync();
@@ -87,20 +85,21 @@ namespace ProtectiveWearProductsApi.Services
         /// Proceso para consultar el detalle de un producto, de forma asíncrono.
         /// </summary>
         /// <param name="id">Identificación de un producto</param>
-        /// <returns>Retorna la información de tallada de un producto</returns>
-        public async Task<ProductApi> GetAsync(string id)
+        /// <returns>Retorna la información detallada de un producto</returns>
+        public async Task<Product> GetAsync(string id)
         {
             var result = await Products
                         .AsQueryable()
                         .Where(prod => prod.Id == id)
-                        .Select(p => new ProductApi
+                        .Select(p => new Product
                         {
                             Id = p.Id,
                             Nombre = p.Nombre,
                             Presentacion = p.Presentacion,
                             Descripcion = p.Descripcion,
                             Precio = p.Precio,
-                            FechaCreacion = p.FechaCreacion
+                            FechaCreacion = p.FechaCreacion,
+                            ImageUrl = p.ImageUrl
                         })
                        .FirstOrDefaultAsync();
 
@@ -113,20 +112,21 @@ namespace ProtectiveWearProductsApi.Services
         /// Proceso para consultar el detalle de un producto, de forma síncrono.
         /// </summary>
         /// <param name="id">Identificación de un producto</param>
-        /// <returns>Retorna la información de tallada de un producto</returns>
-        public ProductApi Get(string id)
+        /// <returns>Retorna la información detallada de un producto</returns>
+        public Product Get(string id)
         {
             var result = Products
                       .AsQueryable()
                       .Where(prod => prod.Id == id)
-                      .Select(p => new ProductApi
+                      .Select(p => new Product
                       {
                           Id = p.Id,
                           Nombre = p.Nombre,
                           Presentacion = p.Presentacion,
                           Descripcion = p.Descripcion,
                           Precio = p.Precio,
-                          FechaCreacion = p.FechaCreacion
+                          FechaCreacion = p.FechaCreacion,
+                          ImageUrl = p.ImageUrl
                       })
                       .FirstOrDefault();
 
@@ -148,7 +148,14 @@ namespace ProtectiveWearProductsApi.Services
                 throw new HttpException(new List<string> { "Datos de productos no diligenciados" }, HttpStatusCode.Gone);
             }
 
-            await Products.InsertOneAsync(model);
+            try
+            {
+                await Products.InsertOneAsync(model);
+            }
+            catch (MongoException ex)
+            {
+                throw new HttpException(new List<string> { string.Format("Producto con error al crear: {0}", ex.Message) }, HttpStatusCode.BadRequest);
+            }
             return model;
         }
 
@@ -175,10 +182,16 @@ namespace ProtectiveWearProductsApi.Services
         public void Update(string id, Product model)
         {
             var result = Get(id);
-            if(result == null)
+            if (result == null)
                 throw new HttpException(new List<string> { "Producto no encontrado para actualizar" }, HttpStatusCode.NotFound);
-
-            Products.ReplaceOne(car => car.Id == id, model);
+            try
+            {
+                Products.ReplaceOne(car => car.Id == id, model);
+            }
+            catch (MongoException ex)
+            {
+                throw new HttpException(new List<string> { string.Format("Error al actualizar, {0} ", ex.Message) }, HttpStatusCode.BadRequest);
+            }
         }
 
         /// <summary>
@@ -191,8 +204,14 @@ namespace ProtectiveWearProductsApi.Services
             var result = Get(id);
             if (result == null)
                 throw new HttpException(new List<string> { "Producto no encontrado para actualizar" }, HttpStatusCode.NotFound);
-
-            await Products.ReplaceOneAsync(car => car.Id == id, model);
+            try
+            {
+                await Products.ReplaceOneAsync(car => car.Id == id, model);
+            }
+            catch (MongoException ex)
+            {
+                throw new HttpException(new List<string> { string.Format("Error al actualizar, {0} ", ex.Message) }, HttpStatusCode.BadRequest);
+            }
         }
 
         /// <summary>
@@ -214,6 +233,6 @@ namespace ProtectiveWearProductsApi.Services
             Products.DeleteOne(prod => prod.Id == id);
         }
 
-       
+
     }
 }

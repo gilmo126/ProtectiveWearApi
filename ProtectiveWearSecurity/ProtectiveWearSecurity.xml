@@ -135,7 +135,7 @@
             <response code="200">OK. Solicitud exitosa.</response>        
             <response code="404">NotFound. Requested resource does not exist on the server.</response> 
         </member>
-        <member name="M:ProtectiveWearSecurity.Controllers.ProductController.Create(ProtectiveWearSecurity.Models.Product)">
+        <member name="M:ProtectiveWearSecurity.Controllers.ProductController.Create(ProtectiveWearSecurity.Models.ProductCreated)">
             <summary>
             Proceso de creación de un producto.
             </summary>
@@ -332,9 +332,39 @@
             Propiedad que toma el precion del producto.
             </summary>
         </member>
-        <member name="P:ProtectiveWearSecurity.Models.ProductApiModel.FechaCreacion">
+        <member name="T:ProtectiveWearSecurity.Models.ProductCreated">
+            <summary>
+            Entidad para creación de producto
+            </summary>
+        </member>
+        <member name="P:ProtectiveWearSecurity.Models.ProductCreated.Nombre">
+            <summary>
+            Propiedad que toma el nombre del producto.
+            </summary>
+        </member>
+        <member name="P:ProtectiveWearSecurity.Models.ProductCreated.Presentacion">
+            <summary>
+            Propiedad que toma la presentación del producto.
+            </summary>        
+        </member>
+        <member name="P:ProtectiveWearSecurity.Models.ProductCreated.Descripcion">
+            <summary>
+            Propiedad que toma la descripción del producto.
+            </summary>
+        </member>
+        <member name="P:ProtectiveWearSecurity.Models.ProductCreated.Precio">
+            <summary>
+            Propiedad que toma el precion del producto.
+            </summary>
+        </member>
+        <member name="P:ProtectiveWearSecurity.Models.ProductCreated.FechaCreacion">
             <summary>
             Propiedad que toma la fecha creacion de producto.
+            </summary>
+        </member>
+        <member name="P:ProtectiveWearSecurity.Models.ProductCreated.ImageUrl">
+            <summary>
+            Propiedad que toma la ruta de la imagen asociada al producto.
             </summary>
         </member>
         <member name="T:ProtectiveWearSecurity.Models.ProtectiveWearApiDbContext">
@@ -459,7 +489,7 @@
             Connstructor de la clase.
             </summary>
         </member>
-        <member name="M:ProtectiveWearSecurity.Services.ProductService.CreateProductAsync(ProtectiveWearSecurity.Models.Product)">
+        <member name="M:ProtectiveWearSecurity.Services.ProductService.CreateProductAsync(ProtectiveWearSecurity.Models.ProductCreated)">
              <summary>
             Proceso de creación de un producto, asíncrono.
              </summary>
@@ -479,7 +509,7 @@
             <param name="id">dentificación de un producto.</param>
             <returns>Retorna la información de tallada de un producto.</returns>
         </member>
-        <member name="M:ProtectiveWearSecurity.Services.ProductService.UpdateProductAsync(ProtectiveWearSecurity.Models.Product)">
+        <member name="M:ProtectiveWearSecurity.Services.ProductService.UpdateProductAsync(System.String,ProtectiveWearSecurity.Models.Product)">
             <summary>
             Proceso de actualización de un producto.
             </summary>

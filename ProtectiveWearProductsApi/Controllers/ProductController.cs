@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using MongoDB.Driver;
+using ProtectiveWearProductsApi.Exceptions;
 using ProtectiveWearProductsApi.Interfaces;
 using ProtectiveWearProductsApi.Models;
 
@@ -48,7 +51,7 @@ namespace ProtectiveWearProductsApi.Controllers
         /// <response code="200">OK. Solicitud exitosa.</response>        
         /// <response code="404">NotFound. Requested resource does not exist on the server.</response> 
         [HttpGet("{id}", Name = "GetProductById")]
-        public async Task<ActionResult<ProductApi>> GetProduct(string id)
+        public async Task<ActionResult<Product>> GetProduct(string id)
         {
             return Ok(await _productService.GetAsync(id));
         }
@@ -62,14 +65,32 @@ namespace ProtectiveWearProductsApi.Controllers
         /// <response code="201">Created. Se ha creado el objeto.</response>        
         /// <response code="400">BadRequest. Request could not be understood by the server.</response> 
         [HttpPost]
-        public async Task<ActionResult<Product>> Create([FromBody]Product model)
+        public async Task<ActionResult<Product>> Create([FromBody]ProductCreated model)
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return BadRequest(
+                    new
+                    {
+                        Error = new { Message = "Invalid product created." },
+                        ModelState.Values
+                    }
+                    );
             }
-            await _productService.CreateAsync(model);
-            return CreatedAtRoute("GetProductById", new { id = model.Id.ToString() }, model);
+            var prod = new Product
+            {
+                Nombre = model.Nombre,
+                Presentacion = model.Presentacion,
+                Descripcion = model.Descripcion,
+                Precio = model.Precio,
+                FechaCreacion = model.FechaCreacion,
+                ImageUrl = model.ImageUrl,
+                Id = ""
+
+            };
+
+            await _productService.CreateAsync(prod);
+            return CreatedAtRoute("GetProductById", new { id = prod.Id.ToString() }, prod);
         }
 
 
@@ -89,6 +110,7 @@ namespace ProtectiveWearProductsApi.Controllers
                 return BadRequest(ModelState);
             }
             await _productService.UpdateAsync(id, model);
+
             return NoContent();
         }
 

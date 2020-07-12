@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
+using ProtectiveWearSecurity.Exceptions;
 using ProtectiveWearSecurity.Models;
 using System;
 using System.Collections.Generic;
@@ -28,6 +29,9 @@ namespace ProtectiveWearSecurity.Services
         {
             client = new HttpClient();
             _configuration = configuration;
+
+            /// for testing
+            //_HostProduct = _configuration.GetConnectionString("HostProducts");
             _HostProduct = Environment.GetEnvironmentVariable("DB_CONNECTION_STRING_PRODUCTS");
         }
         /// <summary>
@@ -35,23 +39,27 @@ namespace ProtectiveWearSecurity.Services
         /// </summary>
         /// <param name="model">Objeto de tipo producto.</param>
         /// <returns>Retorna el nevo objeto creado con su id</returns>
-        public async Task<ProductApiModel> CreateProductAsync([FromBody]Product model)
+        public async Task<ProductApiModel> CreateProductAsync([FromBody]ProductCreated model)
         {
             ProductApiModel pro = null;
 
             response = await client.PostAsJsonAsync($"{_HostProduct}v1/api/product", model);
-            response.EnsureSuccessStatusCode();
+            var jsonSerialize = await response.Content.ReadAsStringAsync();
+            if (!response.IsSuccessStatusCode)
+            {
+                string mensaje = JsonConvert.SerializeObject(jsonSerialize);
+                throw new HttpException(new List<string> { mensaje }, response.StatusCode);
+            }
+            //response.EnsureSuccessStatusCode();
 
             // return URI of the created resource.
-            var jsonSerialize = await response.Content.ReadAsStringAsync();
-
             pro = JsonConvert
-                        .DeserializeObject<ProductApiModel>(jsonSerialize.ToString()
-                        , new JsonSerializerSettings()
-                        {
-                            MissingMemberHandling =
-                                MissingMemberHandling.Ignore
-                        });
+             .DeserializeObject<ProductApiModel>(jsonSerialize.ToString()
+             , new JsonSerializerSettings()
+             {
+                 MissingMemberHandling =
+                     MissingMemberHandling.Ignore
+             });
 
             pro.CheckIsNotNull();
 
@@ -82,7 +90,7 @@ namespace ProtectiveWearSecurity.Services
                 }
             }
 
-            
+
             var jsonSerialize = await response.Content.ReadAsStringAsync();
 
             model = JsonConvert
@@ -103,14 +111,14 @@ namespace ProtectiveWearSecurity.Services
         /// </summary>
         /// <param name="id">dentificación de un producto.</param>
         /// <returns>Retorna la información de tallada de un producto.</returns>
-        public async Task<ProductApiModel> GetProductByIdAsync(string id)
+        public async Task<Product> GetProductByIdAsync(string id)
         {
-            ProductApiModel _product = null;
+            Product _product = null;
             response = await client.GetAsync($"{_HostProduct}v1/api/product/{id}");
 
             if (response.IsSuccessStatusCode)
             {
-                _product = await response.Content.ReadAsAsync<ProductApiModel>();
+                _product = await response.Content.ReadAsAsync<Product>();
             }
             _product.CheckIsNotNull();
             return _product;
@@ -120,10 +128,27 @@ namespace ProtectiveWearSecurity.Services
         /// </summary>
         /// <param name="model">Objeto de tipo producto.</param>
         /// <returns>Retorna un valor vacio con resultado ok.</returns>
-        public async Task UpdateProductAsync([FromBody]Product model)
+        public async Task UpdateProductAsync(string id, [FromBody]Product model)
         {
-            response = await client.PutAsJsonAsync($"{_HostProduct}v1/api/product/{model.Id}", model);
+           
+            response = await client.PutAsJsonAsync($"{_HostProduct}v1/api/product/{id}", model);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                ErrorMessage errorMessage = null;
+                var jsonSerialize = await response.Content.ReadAsStringAsync();
+                errorMessage = JsonConvert
+                 .DeserializeObject<ErrorMessage>(jsonSerialize.ToString()
+                 , new JsonSerializerSettings()
+                 {
+                     MissingMemberHandling =
+                         MissingMemberHandling.Ignore
+                 });                
+
+                throw new HttpException(errorMessage.messages, errorMessage.code);
+            }
             response.EnsureSuccessStatusCode();
+
         }
         /// <summary>
         /// Proceso de eliminación de un producto.
@@ -134,7 +159,7 @@ namespace ProtectiveWearSecurity.Services
         {
             response = await client.DeleteAsync($"{_HostProduct}v1/api/product/{id}");
             return response.StatusCode;
-        }        
+        }
 
     }
 }

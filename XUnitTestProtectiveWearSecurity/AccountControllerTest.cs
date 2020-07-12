@@ -276,7 +276,7 @@ namespace XUnitTestProtectiveWearSecurity
             var result = Assert.IsType<string>(response.Value.ToString());
             _mockUserManager.Verify(x => x.FindByEmailAsync(forgotPasswordViewModel.Email), Times.Once);
             Assert.Contains("No user with that email address found.", result.ToString());
-            Assert.Equal("400", (response).StatusCode.Value.ToString());
+            Assert.Equal("404", (response).StatusCode.Value.ToString());
         }
         /// <summary>
         /// Prueba para determinar que un password fue encontrado.
@@ -441,7 +441,7 @@ namespace XUnitTestProtectiveWearSecurity
             var result = Assert.IsType<string>(response.Value.ToString());
             _mockUserManager.Verify(x => x.FindByEmailAsync(email), Times.Once);
             Assert.Contains("No user with that email address found.", result.ToString());
-            Assert.Equal("400", response.StatusCode.Value.ToString());
+            Assert.Equal("404", response.StatusCode.Value.ToString());
         }
         /// <summary>
         /// Prueba para determinar que un reestablecimiento de password sera fallido
@@ -472,7 +472,7 @@ namespace XUnitTestProtectiveWearSecurity
             var result = Assert.IsType<string>(response.Value.ToString());
             _mockUserManager.Verify(x => x.FindByIdAsync(userId), Times.Once);
             Assert.Contains("Invalid confirmation code.", result.ToString());
-            Assert.Equal("400", response.StatusCode.Value.ToString());
+            Assert.Equal("404", response.StatusCode.Value.ToString());
         }
 
 

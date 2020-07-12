@@ -54,7 +54,7 @@ namespace XUnitTestProtectiveWearProductsApi
             throw new NotImplementedException();
         }
 
-        public ProductApi Get(string id)
+        public Product Get(string id)
         {
             throw new NotImplementedException();
         }
@@ -68,26 +68,26 @@ namespace XUnitTestProtectiveWearProductsApi
                     Nombre = x.Nombre,
                     Descripcion = x.Descripcion,
                     Presentacion = x.Presentacion,
-                    Precio = x.Precio,
-                    FechaCreacion = x.FechaCreacion
+                    Precio = x.Precio
                 }
 
                 ).ToList();
             return result;
         }
 
-        public async Task<ProductApi> GetAsync(string id)
+        public async Task<Product> GetAsync(string id)
         {
             var result = productApis
                 .Where(x => x.Id == id)
-                .Select(p => new ProductApi
+                .Select(p => new Product
                 {
                     Id = p.Id,
                     Nombre = p.Nombre,
                     Descripcion = p.Descripcion,
                     Presentacion = p.Presentacion,
                     Precio = p.Precio,
-                    FechaCreacion = p.FechaCreacion
+                    FechaCreacion = p.FechaCreacion,
+                    ImageUrl = p.ImageUrl
                 }
                 ).FirstOrDefault();
             return result;
