@@ -50,7 +50,6 @@ namespace ProtectiveWearSecurity.Services
                 string mensaje = JsonConvert.SerializeObject(jsonSerialize);
                 throw new HttpException(new List<string> { mensaje }, response.StatusCode);
             }
-            //response.EnsureSuccessStatusCode();
 
             // return URI of the created resource.
             pro = JsonConvert
@@ -128,15 +127,15 @@ namespace ProtectiveWearSecurity.Services
         /// </summary>
         /// <param name="model">Objeto de tipo producto.</param>
         /// <returns>Retorna un valor vacio con resultado ok.</returns>
-        public async Task UpdateProductAsync(string id, [FromBody]Product model)
+        public async Task<Product> UpdateProductAsync(string id, [FromBody]Product model)
         {
-           
+            Product pro = null;
             response = await client.PutAsJsonAsync($"{_HostProduct}v1/api/product/{id}", model);
-
+            var jsonSerialize = await response.Content.ReadAsStringAsync();
             if (!response.IsSuccessStatusCode)
             {
                 ErrorMessage errorMessage = null;
-                var jsonSerialize = await response.Content.ReadAsStringAsync();
+                
                 errorMessage = JsonConvert
                  .DeserializeObject<ErrorMessage>(jsonSerialize.ToString()
                  , new JsonSerializerSettings()
@@ -147,7 +146,18 @@ namespace ProtectiveWearSecurity.Services
 
                 throw new HttpException(errorMessage.messages, errorMessage.code);
             }
-            response.EnsureSuccessStatusCode();
+            // return URI of the created resource.
+            pro = JsonConvert
+             .DeserializeObject<Product>(jsonSerialize.ToString()
+             , new JsonSerializerSettings()
+             {
+                 MissingMemberHandling =
+                     MissingMemberHandling.Ignore
+             });
+
+            pro.CheckIsNotNull();
+
+            return pro;
 
         }
         /// <summary>

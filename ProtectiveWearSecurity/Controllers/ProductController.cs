@@ -73,10 +73,9 @@ namespace ProtectiveWearSecurity.Controllers
         /// <response code="204">Created. No se devuelve el objeto solicitado.</response>        
         /// <response code="400">BadRequest. Request could not be understood by the server.</response>        
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(string id, [FromBody] Product model)
-        {
-            await _productService.UpdateProductAsync(id, model);
-            return NoContent();
+        public async Task<ActionResult<Product>> Update(string id, [FromBody] Product model)
+        {            
+            return await _productService.UpdateProductAsync(id, model);
         }
         /// <summary>
         /// Proceso de eliminación de un producto.

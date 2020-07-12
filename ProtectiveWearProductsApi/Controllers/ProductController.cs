@@ -100,10 +100,10 @@ namespace ProtectiveWearProductsApi.Controllers
         /// <param name="id">Identificación de un producto.</param>
         /// <param name="model">Objeto de tipo producto.</param>
         /// <response code="401">Unauthorized. Requested resource requires authentication.</response>              
-        /// <response code="204">Created. No se devuelve el objeto solicitado.</response>        
+        /// <response code="204">Created. Se devuelve el objeto actualizado.</response>        
         /// <response code="400">BadRequest. Request could not be understood by the server.</response>        
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(string id, [FromBody] Product model)
+        public async Task<ActionResult<Product>> Update(string id, [FromBody] Product model)
         {
             if (!ModelState.IsValid)
             {
@@ -111,7 +111,7 @@ namespace ProtectiveWearProductsApi.Controllers
             }
             await _productService.UpdateAsync(id, model);
 
-            return NoContent();
+            return CreatedAtRoute("GetProductById", new { id = model.Id.ToString() }, model);
         }
 
         /// <summary>

@@ -53,7 +53,7 @@
             <param name="id">Identificación de un producto.</param>
             <param name="model">Objeto de tipo producto.</param>
             <response code="401">Unauthorized. Requested resource requires authentication.</response>              
-            <response code="204">Created. No se devuelve el objeto solicitado.</response>        
+            <response code="204">Created. Se devuelve el objeto actualizado.</response>        
             <response code="400">BadRequest. Request could not be understood by the server.</response>        
         </member>
         <member name="M:ProtectiveWearProductsApi.Controllers.ProductController.Delete(System.String)">
